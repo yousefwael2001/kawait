@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1081719062021",
+    "project_id": "kawait-b07d1",
+    "storage_bucket": "kawait-b07d1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081719062021:android:515ae922b79be1d81d666c",
+        "android_client_info": {
+          "package_name": "com.example.kawait"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081719062021-ttdokqedg1gca0a6sqmc5pv0j8k0vgo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxIIZ8KN1-LqOjHmHCuUaXg3K31HSNmSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081719062021-ttdokqedg1gca0a6sqmc5pv0j8k0vgo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

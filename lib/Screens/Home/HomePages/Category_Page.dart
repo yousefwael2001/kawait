@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/Furniture_Page.dart';
@@ -275,7 +276,12 @@ class _CategoryPageState extends State<CategoryPage> {
                 future: _productsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: SpinKitFadingCircle(
+                        color: Colors.blue,
+                        size: 80.0,
+                      ),
+                    );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
@@ -395,63 +401,118 @@ class _CategoryPageState extends State<CategoryPage> {
                           ),
                         )
                         .toList();
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          top: 22.h, right: 16.w, left: 16.w, bottom: 10.h),
-                      child: CarouselSlider(
-                        carouselController: _controller,
-                        items: imageSliders,
-                        //Slider Container properties
-                        options: CarouselOptions(
-                          height: 151.0,
-                          autoPlay: true,
-                          aspectRatio: 16 / 9,
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          enableInfiniteScroll: true,
-                          autoPlayAnimationDuration:
-                              Duration(milliseconds: 800),
-                          viewportFraction: 1.0,
-                          enlargeCenterPage: false,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          },
+                    if (productList.isNotEmpty) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            top: 22.h, right: 16.w, left: 16.w, bottom: 10.h),
+                        child: CarouselSlider(
+                          carouselController: _controller,
+                          items: imageSliders,
+                          //Slider Container properties
+                          options: CarouselOptions(
+                            height: 151.0,
+                            autoPlay: true,
+                            aspectRatio: 16 / 9,
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enableInfiniteScroll: true,
+                            autoPlayAnimationDuration:
+                                Duration(milliseconds: 800),
+                            viewportFraction: 1.0,
+                            enlargeCenterPage: false,
+                            onPageChanged: (index, reason) {
+                              setState(() {
+                                _current = index;
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    } else {
+                      return Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 15.w,
+                          vertical: 15.h,
+                        ),
+                        height: 151.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0.r),
+                          color: Color(0xffF8F8F7),
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  Colors.grey.withOpacity(0.5), // Shadow color
+                              spreadRadius: 2, // How far the shadow spreads
+                              blurRadius: 10, // Soften the shadow
+                              offset: Offset(
+                                  2, 2), // Offset in the X and Y direction
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.warning,
+                              size: 80.r,
+                              color: const Color.fromARGB(255, 201, 8, 8),
+                            ),
+                            SizedBox(
+                              width: 15.w,
+                            ),
+                            Text(
+                              "لا يوجد عروض",
+                              style: GoogleFonts.tajawal(
+                                fontSize: 16.sp,
+                                color: const Color.fromARGB(255, 201, 8, 8),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }
                   }
                 }),
             FutureBuilder<List<Map<String, dynamic>>>(
                 future: _productsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: SpinKitFadingCircle(
+                        color: Colors.blue,
+                        size: 80.0,
+                      ),
+                    );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     List<Map<String, dynamic>> productList = snapshot.data ??
                         []; // Get the list of products or an empty list if null.
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: productList.asMap().entries.map((entry) {
-                        return GestureDetector(
-                          onTap: () => _controller.animateToPage(entry.key),
-                          child: Container(
-                            width: 16.w,
-                            height: 3.h,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3.r),
-                              color: _current == entry.key
-                                  ? Color(0xffFED235)
-                                  : Color(0xffD5D5D5),
+                    if (productList.isNotEmpty) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: productList.asMap().entries.map((entry) {
+                          return GestureDetector(
+                            onTap: () => _controller.animateToPage(entry.key),
+                            child: Container(
+                              width: 16.w,
+                              height: 3.h,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 4.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(3.r),
+                                color: _current == entry.key
+                                    ? Color(0xffFED235)
+                                    : Color(0xffD5D5D5),
+                              ),
                             ),
-                          ),
-                        );
-                      }).toList(),
-                    );
+                          );
+                        }).toList(),
+                      );
+                    } else {
+                      return SizedBox();
+                    }
                   }
                 }),
             Padding(

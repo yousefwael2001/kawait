@@ -246,8 +246,46 @@ class _ServiceCategoryState extends State<ServiceCategory> {
                   itemCount: filteredProducts.length,
                 );
               } else {
-                return Center(
-                  child: Text("لا يوجد بيانات"),
+                return Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 15.w,
+                    vertical: 15.h,
+                  ),
+                  height: 151.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0.r),
+                    color: Color(0xffF8F8F7),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5), // Shadow color
+                        spreadRadius: 2, // How far the shadow spreads
+                        blurRadius: 10, // Soften the shadow
+                        offset: Offset(2, 2), // Offset in the X and Y direction
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.warning,
+                        size: 80.r,
+                        color: const Color.fromARGB(255, 201, 8, 8),
+                      ),
+                      SizedBox(
+                        width: 15.w,
+                      ),
+                      Text(
+                        "لا يوجد خدمات",
+                        style: GoogleFonts.tajawal(
+                          fontSize: 16.sp,
+                          color: const Color.fromARGB(255, 201, 8, 8),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
                 );
               }
             }

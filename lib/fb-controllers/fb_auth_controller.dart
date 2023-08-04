@@ -124,6 +124,19 @@ class FbAuthController with Helpers {
         'imageURL': imageURL,
       });
 
+      Map<String, dynamic> userdata = {
+        "id": userCredential.user!.uid,
+        "name": name,
+        "phone": phone,
+        "imageURL": imageURL,
+        "email": email,
+        "companyName": company_name
+      };
+
+      UserData userData = UserData.fromMap(userdata);
+
+      AppSettingsPreferences().saveUser(user: userData);
+
       return true;
     } on FirebaseAuthException catch (e) {
       _controlException(context, e);

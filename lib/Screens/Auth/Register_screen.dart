@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -134,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
                     isenablelable: true,
                     lableText: "اسم الشركة",
                     hintText: "اسم الشركة",
-                    codeTextController: _phoneController,
+                    codeTextController: _companyNameController,
                     obscureText: false,
                     inputType: TextInputType.phone,
                   ),
@@ -231,6 +232,17 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
 
   Future<void> performRegister() async {
     if (checkData()) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: SpinKitFadingCircle(
+              color: Colors.blue,
+              size: 80.0,
+            ),
+          );
+        },
+      );
       await register();
     }
   }
@@ -238,6 +250,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
   bool checkData() {
     if (_nameController.text.isNotEmpty &&
         _emailController.text.isNotEmpty &&
+        _companyNameController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty &&
         _passwordController1.text.isNotEmpty &&
         _phoneController.text.isNotEmpty) {
@@ -264,7 +277,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
         company_name: _companyNameController.text,
         password: _passwordController.text);
     if (status) {
-      Get.off(HomeScreen());
+      Get.off(HomeScreen(), arguments: "1");
     }
   }
 }

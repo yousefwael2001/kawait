@@ -7,6 +7,7 @@ import 'package:kawait/Shared%20preferences/shared_preferences.dart';
 import 'package:kawait/fb-controllers/fb_auth_controller.dart';
 import 'package:kawait/widgets/alert_dialog_widget.dart';
 import 'package:kawait/widgets/list_tile_style.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'ProfilePageScreens/details_page.dart';
 
@@ -18,6 +19,47 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  void tikTokAppOpen() async {
+    var url =
+        'https://www.tiktok.com/@kuwaitcityresidential?_t=8ecxjxfkqef&_r=1';
+    await launch(url);
+  }
+
+  void instegramAppOpen() async {
+    var url = 'https://www.instagram.com/kuwait_city_residential/';
+    await launch(url);
+  }
+
+  void facebookAppOpen() async {
+    var url = 'https://www.facebook.com/KuwaitCityResidential';
+    await launch(url);
+  }
+
+  void telagramAppOpen() async {
+    var url = 'https://t.me/+AEKkD7-xGIpmYmM0';
+    await launch(url);
+  }
+
+  void snapshatAppOpen() async {
+    var url = 'https://t.snapchat.com/9dXSIzwG';
+    await launch(url);
+  }
+
+  void youtubeAppOpen() async {
+    var url = 'https://www.youtube.com/@KuwaitCity1';
+    await launch(url);
+  }
+
+  void twitterAppOpen() async {
+    var url = 'https://twitter.com/kuwait_res';
+    await launch(url);
+  }
+
+  void whatsAppOpen() async {
+    var url = 'http://wa.me/+96561660571?text=Hello';
+    await launch(url);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,50 +199,70 @@ class _ProfilePageState extends State<ProfilePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      radius: 25.r,
-                      child: Image.asset(
-                        "images/svgexport-17 (81).png",
-                        width: 20.w,
-                        height: 16.h,
+                    InkWell(
+                      onTap: () {
+                        tikTokAppOpen();
+                      },
+                      child: CircleAvatar(
+                        radius: 25.r,
+                        child: Image.asset(
+                          "images/svgexport-17 (81).png",
+                          width: 20.w,
+                          height: 16.h,
+                        ),
+                        backgroundColor: Color(0xffF7F7F7),
                       ),
-                      backgroundColor: Color(0xffF7F7F7),
                     ),
                     SizedBox(
                       width: 24.w,
                     ),
-                    CircleAvatar(
-                      radius: 25.r,
-                      child: Image.asset(
-                        "images/Group 38378.png",
-                        width: 20.w,
-                        height: 16.h,
+                    InkWell(
+                      onTap: () {
+                        instegramAppOpen();
+                      },
+                      child: CircleAvatar(
+                        radius: 25.r,
+                        child: Image.asset(
+                          "images/Group 38378.png",
+                          width: 20.w,
+                          height: 16.h,
+                        ),
+                        backgroundColor: Color(0xffF7F7F7),
                       ),
-                      backgroundColor: Color(0xffF7F7F7),
                     ),
                     SizedBox(
                       width: 24.w,
                     ),
-                    CircleAvatar(
-                      radius: 25.r,
-                      child: Image.asset(
-                        "images/Path 66795.png",
-                        width: 20.w,
-                        height: 16.h,
+                    InkWell(
+                      onTap: () {
+                        facebookAppOpen();
+                      },
+                      child: CircleAvatar(
+                        radius: 25.r,
+                        child: Image.asset(
+                          "images/Path 66795.png",
+                          width: 20.w,
+                          height: 16.h,
+                        ),
+                        backgroundColor: Color(0xffF7F7F7),
                       ),
-                      backgroundColor: Color(0xffF7F7F7),
                     ),
                     SizedBox(
                       width: 24.w,
                     ),
-                    CircleAvatar(
-                      radius: 25.r,
-                      child: Image.asset(
-                        "images/svgexport-17 (83).png",
-                        width: 20.w,
-                        height: 16.h,
+                    InkWell(
+                      onTap: () {
+                        telagramAppOpen();
+                      },
+                      child: CircleAvatar(
+                        radius: 25.r,
+                        child: Image.asset(
+                          "images/svgexport-17 (83).png",
+                          width: 20.w,
+                          height: 16.h,
+                        ),
+                        backgroundColor: Color(0xffF7F7F7),
                       ),
-                      backgroundColor: Color(0xffF7F7F7),
                     )
                   ],
                 ),
@@ -210,38 +272,53 @@ class _ProfilePageState extends State<ProfilePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      radius: 25.r,
-                      child: Image.asset(
-                        "images/svgexport-17 (80).png",
-                        width: 20.w,
-                        height: 16.h,
+                    InkWell(
+                      onTap: () {
+                        snapshatAppOpen();
+                      },
+                      child: CircleAvatar(
+                        radius: 25.r,
+                        child: Image.asset(
+                          "images/svgexport-17 (80).png",
+                          width: 20.w,
+                          height: 16.h,
+                        ),
+                        backgroundColor: Color(0xffF7F7F7),
                       ),
-                      backgroundColor: Color(0xffF7F7F7),
                     ),
                     SizedBox(
                       width: 24.w,
                     ),
-                    CircleAvatar(
-                      radius: 25.r,
-                      child: Image.asset(
-                        "images/svgexport-17 (79).png",
-                        width: 20.w,
-                        height: 16.h,
+                    InkWell(
+                      onTap: () {
+                        youtubeAppOpen();
+                      },
+                      child: CircleAvatar(
+                        radius: 25.r,
+                        child: Image.asset(
+                          "images/svgexport-17 (79).png",
+                          width: 20.w,
+                          height: 16.h,
+                        ),
+                        backgroundColor: Color(0xffF7F7F7),
                       ),
-                      backgroundColor: Color(0xffF7F7F7),
                     ),
                     SizedBox(
                       width: 24.w,
                     ),
-                    CircleAvatar(
-                      radius: 25.r,
-                      child: Image.asset(
-                        "images/svgexport-17 (82).png",
-                        width: 20.w,
-                        height: 16.h,
+                    InkWell(
+                      onTap: () {
+                        twitterAppOpen();
+                      },
+                      child: CircleAvatar(
+                        radius: 25.r,
+                        child: Image.asset(
+                          "images/svgexport-17 (82).png",
+                          width: 20.w,
+                          height: 16.h,
+                        ),
+                        backgroundColor: Color(0xffF7F7F7),
                       ),
-                      backgroundColor: Color(0xffF7F7F7),
                     ),
                   ],
                 ),

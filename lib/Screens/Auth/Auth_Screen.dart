@@ -54,7 +54,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                   Text(
-                    'في قروب\nمدينة الكويت السكنية',
+                    'في مدينة \nالكويت السكنية',
                     style: GoogleFonts.tajawal(
                       fontSize: 30.sp,
                       color: Colors.black,
@@ -65,6 +65,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           offset: Offset(0, 3),
                         ),
                       ],
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],

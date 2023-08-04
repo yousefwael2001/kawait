@@ -2,9 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kawait/Screens/Home/HomePages/HomePageScreens/service_page.dart';
+import 'package:kawait/fb-controllers/fb_fire_store_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -119,12 +121,12 @@ class _HomePageState extends State<HomePage> {
               fit: BoxFit.cover,
             ),
             SizedBox(
-              height: 3.h,
+              height: 5.h,
             ),
             Text(
-              "قروب\n مدينة الكويت السكنية",
+              "مدينة الكويت السكنية",
               style: GoogleFonts.tajawal(
-                fontSize: 8.sp,
+                fontSize: 9.sp,
                 color: Colors.black,
               ),
               textAlign: TextAlign.center,
@@ -161,7 +163,12 @@ class _HomePageState extends State<HomePage> {
                 future: _productsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return Center(
+                      child: SpinKitFadingCircle(
+                        color: Colors.blue,
+                        size: 80.0,
+                      ),
+                    );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
@@ -281,63 +288,118 @@ class _HomePageState extends State<HomePage> {
                           ),
                         )
                         .toList();
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          top: 22.h, right: 16.w, left: 16.w, bottom: 10.h),
-                      child: CarouselSlider(
-                        carouselController: _controller,
-                        items: imageSliders,
-                        //Slider Container properties
-                        options: CarouselOptions(
-                          height: 151.0,
-                          autoPlay: true,
-                          aspectRatio: 16 / 9,
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          enableInfiniteScroll: true,
-                          autoPlayAnimationDuration:
-                              Duration(milliseconds: 800),
-                          viewportFraction: 1.0,
-                          enlargeCenterPage: false,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          },
+                    if (productList.isNotEmpty) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            top: 22.h, right: 16.w, left: 16.w, bottom: 10.h),
+                        child: CarouselSlider(
+                          carouselController: _controller,
+                          items: imageSliders,
+                          //Slider Container properties
+                          options: CarouselOptions(
+                            height: 151.0,
+                            autoPlay: true,
+                            aspectRatio: 16 / 9,
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enableInfiniteScroll: true,
+                            autoPlayAnimationDuration:
+                                Duration(milliseconds: 800),
+                            viewportFraction: 1.0,
+                            enlargeCenterPage: false,
+                            onPageChanged: (index, reason) {
+                              setState(() {
+                                _current = index;
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    } else {
+                      return Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 15.w,
+                          vertical: 15.h,
+                        ),
+                        height: 151.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0.r),
+                          color: Color(0xffF8F8F7),
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  Colors.grey.withOpacity(0.5), // Shadow color
+                              spreadRadius: 2, // How far the shadow spreads
+                              blurRadius: 10, // Soften the shadow
+                              offset: Offset(
+                                  2, 2), // Offset in the X and Y direction
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.warning,
+                              size: 80.r,
+                              color: const Color.fromARGB(255, 201, 8, 8),
+                            ),
+                            SizedBox(
+                              width: 15.w,
+                            ),
+                            Text(
+                              "لا يوجد عروض",
+                              style: GoogleFonts.tajawal(
+                                fontSize: 16.sp,
+                                color: const Color.fromARGB(255, 201, 8, 8),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }
                   }
                 }),
             FutureBuilder<List<Map<String, dynamic>>>(
                 future: _productsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return Center(
+                      child: SpinKitFadingCircle(
+                        color: Colors.blue,
+                        size: 80.0,
+                      ),
+                    );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     List<Map<String, dynamic>> productList = snapshot.data ??
                         []; // Get the list of products or an empty list if null.
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: productList.asMap().entries.map((entry) {
-                        return GestureDetector(
-                          onTap: () => _controller.animateToPage(entry.key),
-                          child: Container(
-                            width: 16.w,
-                            height: 3.h,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3.r),
-                              color: _current == entry.key
-                                  ? Color(0xffFED235)
-                                  : Color(0xffD5D5D5),
+                    if (productList.isNotEmpty) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: productList.asMap().entries.map((entry) {
+                          return GestureDetector(
+                            onTap: () => _controller.animateToPage(entry.key),
+                            child: Container(
+                              width: 16.w,
+                              height: 3.h,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 4.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(3.r),
+                                color: _current == entry.key
+                                    ? Color(0xffFED235)
+                                    : Color(0xffD5D5D5),
+                              ),
                             ),
-                          ),
-                        );
-                      }).toList(),
-                    );
+                          );
+                        }).toList(),
+                      );
+                    } else {
+                      return SizedBox();
+                    }
                   }
                 }),
             Container(
@@ -408,7 +470,12 @@ class _HomePageState extends State<HomePage> {
                   future: _productsFuture,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
+                      return Center(
+                        child: SpinKitFadingCircle(
+                          color: Colors.blue,
+                          size: 80.0,
+                        ),
+                      );
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
@@ -421,148 +488,202 @@ class _HomePageState extends State<HomePage> {
                               .where((product) =>
                                   product['categoryName'] == filter)
                               .toList(); // Show products with matching category name
-                      return ListView.builder(
-                        padding: EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          Map<String, dynamic> productData =
-                              filteredProducts[index];
-                          List<String> imageUrls =
-                              List.castFrom<dynamic, String>(
-                                  productData['imageUrls'] ?? []);
+                      if (products.isNotEmpty) {
+                        return ListView.builder(
+                          padding: EdgeInsets.all(0),
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            Map<String, dynamic> productData =
+                                filteredProducts[index];
+                            List<String> imageUrls =
+                                List.castFrom<dynamic, String>(
+                                    productData['imageUrls'] ?? []);
 
-                          return Stack(
-                            children: [
-                              Container(
-                                decoration:
-                                    BoxDecoration(color: Color(0xffF9F9F9)),
-                                margin: EdgeInsets.only(
-                                    right: 15.w, left: 15.w, bottom: 10.h),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    imageUrls.length == 0
-                                        ? Image.asset(
-                                            "images/buoyant-successful-handyman-posing-against-white-wall.png",
-                                          )
-                                        : SizedBox(
-                                            width: 125.w,
-                                            height: 95.h,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(8.r),
-                                                bottomRight:
-                                                    Radius.circular(8.r),
-                                              ),
-                                              child: Image.network(
-                                                imageUrls[0],
-                                                width: 70.w,
-                                                height: 50.h,
-                                                fit: BoxFit.cover,
+                            return Stack(
+                              children: [
+                                Container(
+                                  decoration:
+                                      BoxDecoration(color: Color(0xffF9F9F9)),
+                                  margin: EdgeInsets.only(
+                                      right: 15.w, left: 15.w, bottom: 10.h),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      imageUrls.length == 0
+                                          ? Image.asset(
+                                              "images/buoyant-successful-handyman-posing-against-white-wall.png",
+                                            )
+                                          : SizedBox(
+                                              width: 125.w,
+                                              height: 95.h,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.only(
+                                                  topRight:
+                                                      Radius.circular(8.r),
+                                                  bottomRight:
+                                                      Radius.circular(8.r),
+                                                ),
+                                                child: Image.network(
+                                                  imageUrls[0],
+                                                  width: 70.w,
+                                                  height: 50.h,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                    SizedBox(
-                                      width: 12.w,
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 18.h,
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                productData['name'],
-                                                style: GoogleFonts.tajawal(
-                                                  fontSize: 16.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 10.w,
-                                              ),
-                                              Text(
-                                                productData['categoryName'] ==
-                                                        null
-                                                    ? ""
-                                                    : productData[
-                                                        'categoryName'],
-                                                style: GoogleFonts.tajawal(
-                                                  fontSize: 9.sp,
-                                                  color: Color(0xff6D6D6D),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 11.h,
-                                          ),
-                                          Text(
-                                            productData['shortDescription'] ==
-                                                    null
-                                                ? ""
-                                                : productData[
-                                                    'shortDescription'],
-                                            style: GoogleFonts.tajawal(
-                                              fontSize: 10.sp,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 9.h,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .start, // Move this row to the left
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Spacer(),
-                                              Text(
-                                                productData['price'] == null
-                                                    ? ""
-                                                    : productData['price'] +
-                                                        "د.ك",
-                                                style: GoogleFonts.tajawal(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color(0xffFED235),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 15.w,
-                                              )
-                                            ],
-                                          )
-                                        ],
+                                      SizedBox(
+                                        width: 12.w,
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsets.only(left: 30.w, top: 10.4.h),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: Color(0XFFFF1E1E),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              height: 18.h,
+                                            ),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  productData['name'],
+                                                  style: GoogleFonts.tajawal(
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                Text(
+                                                  productData['categoryName'] ==
+                                                          null
+                                                      ? ""
+                                                      : productData[
+                                                          'categoryName'],
+                                                  style: GoogleFonts.tajawal(
+                                                    fontSize: 9.sp,
+                                                    color: Color(0xff6D6D6D),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 11.h,
+                                            ),
+                                            Text(
+                                              productData['shortDescription'] ==
+                                                      null
+                                                  ? ""
+                                                  : productData[
+                                                      'shortDescription'],
+                                              style: GoogleFonts.tajawal(
+                                                fontSize: 10.sp,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 9.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment
+                                                  .start, // Move this row to the left
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Spacer(),
+                                                Text(
+                                                  productData['price'] == null
+                                                      ? ""
+                                                      : productData['price'] +
+                                                          "د.ك",
+                                                  style: GoogleFonts.tajawal(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xffFED235),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 15.w,
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                   ),
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 30.w, top: 10.4.h),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await FbFireStoreController()
+                                            .addtoFav(productData, context);
+                                      },
+                                      child: Icon(
+                                        Icons.favorite_border,
+                                        color: Color(0XFFFF1E1E),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            );
+                          },
+                          itemCount: filteredProducts.length,
+                        );
+                      } else {
+                        return Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 15.w,
+                            vertical: 15.h,
+                          ),
+                          height: 151.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0.r),
+                            color: Color(0xffF8F8F7),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey
+                                    .withOpacity(0.5), // Shadow color
+                                spreadRadius: 2, // How far the shadow spreads
+                                blurRadius: 10, // Soften the shadow
+                                offset: Offset(
+                                    2, 2), // Offset in the X and Y direction
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.warning,
+                                size: 80.r,
+                                color: const Color.fromARGB(255, 201, 8, 8),
+                              ),
+                              SizedBox(
+                                width: 15.w,
+                              ),
+                              Text(
+                                "لا يوجد خدمات",
+                                style: GoogleFonts.tajawal(
+                                  fontSize: 16.sp,
+                                  color: const Color.fromARGB(255, 201, 8, 8),
+                                  fontWeight: FontWeight.bold,
                                 ),
                               )
                             ],
-                          );
-                        },
-                        itemCount: filteredProducts.length,
-                      );
+                          ),
+                        );
+                      }
                     }
                   }),
             ),

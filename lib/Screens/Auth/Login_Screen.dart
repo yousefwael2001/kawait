@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kawait/Screens/Auth/Auth_Screen.dart';
@@ -170,6 +171,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> performLogin() async {
     if (checkData()) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: SpinKitFadingCircle(
+              color: Colors.blue,
+              size: 80.0,
+            ),
+          );
+        },
+      );
       await login();
     }
   }
@@ -189,6 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailcontroller.text,
         password: _passwordcontroller.text);
     if (status) {
+      Get.back();
       stream = FbAuthController().checkUserStatus(({required bool loggedIn}) {
         loggedIn ? Get.to(HomeScreen(), arguments: "1") : Get.to(AuthScreen());
       });

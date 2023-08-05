@@ -16,62 +16,59 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 131, 129, 129),
       body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'images/close-up-businessman-holding-briefcase.png',
-              ),
-              fit: BoxFit.fill,
-            ),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          width: 375.w,
-          height: 812.h,
+        child: SizedBox(
+          width: double.infinity,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 179.h,
+                height: 100.h,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'مرحبا بك',
-                    style: GoogleFonts.tajawal(
-                      fontSize: 46.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xffFED235),
-                      shadows: [
-                        BoxShadow(
-                          color: Color(0XFF707070),
-                          blurRadius: 6,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                    'في مدينة \nالكويت السكنية',
-                    style: GoogleFonts.tajawal(
-                      fontSize: 30.sp,
-                      color: Colors.black,
-                      shadows: [
-                        BoxShadow(
-                          color: Color(0XFF707070),
-                          blurRadius: 6,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+              Image.asset(
+                "images/Group 41472.png",
+                width: 150.w,
+                height: 150.h,
+                fit: BoxFit.contain,
+                filterQuality: FilterQuality.high,
               ),
               SizedBox(
-                height: 264.h,
+                height: 50.h,
+              ),
+              Text(
+                'مرحبا بك',
+                style: GoogleFonts.tajawal(
+                  fontSize: 40.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xffFED235),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0XFF707070),
+                      blurRadius: 6,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                'في مدينة \nالكويت السكنية',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.tajawal(
+                  fontSize: 30.sp,
+                  color: Colors.black,
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0XFF707070),
+                      blurRadius: 6,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 150.h,
               ),
               ElevatedButton(
                 onPressed: () {
@@ -129,6 +126,119 @@ class _AuthScreenState extends State<AuthScreen> {
             ],
           ),
         ),
+
+        // child: Container(
+        //   decoration: BoxDecoration(
+        //     image: DecorationImage(
+        //       image: AssetImage(
+        //         'images/close-up-businessman-holding-briefcase.png',
+        //       ),
+        //       fit: BoxFit.fill,
+        //     ),
+        //   ),
+        //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+        //   width: 375.w,
+        //   height: 812.h,
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       SizedBox(
+        //         height: 179.h,
+        //       ),
+        //       Column(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [
+        //           Text(
+        //             'مرحبا بك',
+        //             style: GoogleFonts.tajawal(
+        //               fontSize: 46.sp,
+        //               fontWeight: FontWeight.bold,
+        //               color: Color(0xffFED235),
+        //               shadows: [
+        //                 BoxShadow(
+        //                   color: Color(0XFF707070),
+        //                   blurRadius: 6,
+        //                   offset: Offset(0, 3),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //           Text(
+        //             'في مدينة \nالكويت السكنية',
+        //             style: GoogleFonts.tajawal(
+        //               fontSize: 30.sp,
+        //               color: Colors.black,
+        //               shadows: [
+        //                 BoxShadow(
+        //                   color: Color(0XFF707070),
+        //                   blurRadius: 6,
+        //                   offset: Offset(0, 3),
+        //                 ),
+        //               ],
+        //               fontWeight: FontWeight.bold,
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //       SizedBox(
+        //         height: 264.h,
+        //       ),
+        //       ElevatedButton(
+        //         onPressed: () {
+        //           Get.to(() => LoginScreen());
+        //         },
+        //         child: Text(
+        //           'تسجيل الدخول',
+        //           style: GoogleFonts.tajawal(
+        //             fontSize: 18.sp,
+        //             fontWeight: FontWeight.bold,
+        //             color: Color(0XFFFED235),
+        //           ),
+        //         ),
+        //         style: ElevatedButton.styleFrom(
+        //           minimumSize: Size(343.w, 47.h),
+        //           backgroundColor: Colors.transparent,
+        //           shadowColor: Colors.transparent,
+        //           shape: RoundedRectangleBorder(
+        //             side: BorderSide(
+        //               color: Color(0XFFFED235),
+        //             ),
+        //             borderRadius: BorderRadius.circular(8.r),
+        //           ),
+        //           alignment: Alignment.center,
+        //         ),
+        //       ),
+        //       SizedBox(
+        //         height: 20.h,
+        //       ),
+        //       ElevatedButton(
+        //         onPressed: () {
+        //           Get.to(() => HomeScreen(), arguments: "0");
+        //         },
+        //         child: Text(
+        //           "تصفح",
+        //           style: GoogleFonts.tajawal(
+        //             fontSize: 18.sp,
+        //             fontWeight: FontWeight.bold,
+        //             color: Colors.white,
+        //           ),
+        //         ),
+        //         style: ElevatedButton.styleFrom(
+        //           minimumSize: Size(343.w, 47.h),
+        //           backgroundColor: Color(0XFFFED235),
+        //           shadowColor: Colors.transparent,
+        //           shape: RoundedRectangleBorder(
+        //             side: BorderSide(
+        //               color: Color(0XFFFED235),
+        //             ),
+        //             borderRadius: BorderRadius.circular(8.r),
+        //           ),
+        //           alignment: Alignment.center,
+        //         ),
+        //       )
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }

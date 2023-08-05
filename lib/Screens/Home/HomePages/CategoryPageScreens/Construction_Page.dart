@@ -21,7 +21,6 @@ class Item {
 
 class _ConstructionPageState extends State<ConstructionPage> {
   List<Item> items = [
-    Item(name: 'مكافحة حشرات', imageUrl: 'images/Group 43830.png'),
     Item(name: 'مقاول صحي', imageUrl: 'images/Group 43872.png'),
     Item(name: "الأقفال", imageUrl: 'images/Group 44255.png'),
     Item(name: "تسليك مجاري", imageUrl: 'images/Group 44257.png'),

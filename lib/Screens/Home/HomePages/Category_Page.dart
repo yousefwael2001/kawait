@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/Furniture_Page.dart';
@@ -190,6 +191,7 @@ class _CategoryPageState extends State<CategoryPage> {
     Item(name: 'خدمات اعلانية', imageUrl: 'images/Artboard – 1.png'),
     Item(name: 'تنقيب ومعاملات', imageUrl: 'images/Group 43661.png'),
     Item(name: 'متفرقات', imageUrl: 'images/12.png'),
+    Item(name: 'مكافحة حشرات', imageUrl: 'images/Group 43830.png'),
     Item(name: 'خدمات مختلفة', imageUrl: 'images/Group 43811.png'),
   ];
 
@@ -402,28 +404,40 @@ class _CategoryPageState extends State<CategoryPage> {
                         )
                         .toList();
                     if (productList.isNotEmpty) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                            top: 22.h, right: 16.w, left: 16.w, bottom: 10.h),
-                        child: CarouselSlider(
-                          carouselController: _controller,
-                          items: imageSliders,
-                          //Slider Container properties
-                          options: CarouselOptions(
-                            height: 151.0,
-                            autoPlay: true,
-                            aspectRatio: 16 / 9,
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            enableInfiniteScroll: true,
-                            autoPlayAnimationDuration:
-                                Duration(milliseconds: 800),
-                            viewportFraction: 1.0,
-                            enlargeCenterPage: false,
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                _current = index;
-                              });
-                            },
+                      return AnimationConfiguration.staggeredList(
+                        position: 0,
+                        duration: const Duration(milliseconds: 500),
+                        child: SlideAnimation(
+                          verticalOffset: 50.0,
+                          child: FadeInAnimation(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: 22.h,
+                                  right: 16.w,
+                                  left: 16.w,
+                                  bottom: 10.h),
+                              child: CarouselSlider(
+                                carouselController: _controller,
+                                items: imageSliders,
+                                //Slider Container properties
+                                options: CarouselOptions(
+                                  height: 151.0,
+                                  autoPlay: true,
+                                  aspectRatio: 16 / 9,
+                                  autoPlayCurve: Curves.fastOutSlowIn,
+                                  enableInfiniteScroll: true,
+                                  autoPlayAnimationDuration:
+                                      Duration(milliseconds: 800),
+                                  viewportFraction: 1.0,
+                                  enlargeCenterPage: false,
+                                  onPageChanged: (index, reason) {
+                                    setState(() {
+                                      _current = index;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       );
@@ -544,47 +558,56 @@ class _CategoryPageState extends State<CategoryPage> {
                   ),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        if (index == 0) {
-                          Get.to(() => ConstructionPage());
-                        } else if (index == 1) {
-                          Get.to(() => RealEstatesPage());
-                        } else if (index == 4) {
-                          Get.to(() => FurniturePage());
-                        } else {
-                          Get.to(
-                            () => ServiceCategory(
-                              Category_Name: items[index].name,
-                            ),
-                          );
-                        }
-                      },
-                      child: SizedBox(
-                        height: 134.h,
-                        width: 107.w,
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 113.h,
+                    return AnimationConfiguration.staggeredList(
+                      position: 0,
+                      duration: const Duration(milliseconds: 500),
+                      child: SlideAnimation(
+                        verticalOffset: 50.0,
+                        child: FadeInAnimation(
+                          child: InkWell(
+                            onTap: () {
+                              if (index == 0) {
+                                Get.to(() => ConstructionPage());
+                              } else if (index == 1) {
+                                Get.to(() => RealEstatesPage());
+                              } else if (index == 4) {
+                                Get.to(() => FurniturePage());
+                              } else {
+                                Get.to(
+                                  () => ServiceCategory(
+                                    Category_Name: items[index].name,
+                                  ),
+                                );
+                              }
+                            },
+                            child: SizedBox(
+                              height: 134.h,
                               width: 107.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.r),
-                                color: Color(0XFFF4F4F4),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 113.h,
+                                    width: 107.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      color: Color(0XFFF4F4F4),
+                                    ),
+                                    child: Image.asset(items[index].imageUrl),
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Text(
+                                    items[index].name,
+                                    style: GoogleFonts.tajawal(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  )
+                                ],
                               ),
-                              child: Image.asset(items[index].imageUrl),
                             ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              items[index].name,
-                              style: GoogleFonts.tajawal(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            )
-                          ],
+                          ),
                         ),
                       ),
                     );

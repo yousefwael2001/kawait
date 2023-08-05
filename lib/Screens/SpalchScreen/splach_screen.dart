@@ -35,31 +35,45 @@ class _SplachScreenState extends State<SplachScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset("images/Group 41472.png"),
-            SizedBox(
-              height: 15,
-            ),
-            Text(
-              "مدينة الكويت السكنية",
-              style: GoogleFonts.tajawal(
-                fontSize: 18.sp,
-                color: Colors.black,
-                shadows: [
-                  BoxShadow(
-                    color: Color(0XFF707070),
-                    blurRadius: 6,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-                fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/tall-office-buildings-city.jpg"),
+                fit: BoxFit.cover,
               ),
-            )
-          ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "images/Untitled-2-0١.png",
+                ),
+                // SizedBox(
+                //   height: 15,
+                // ),
+                // Text(
+                //   "مدينة الكويت السكنية",
+                //   style: GoogleFonts.tajawal(
+                //     fontSize: 18.sp,
+                //     color: Colors.black,
+                //     shadows: [
+                //       BoxShadow(
+                //         color: Color(0XFF707070),
+                //         blurRadius: 6,
+                //         offset: Offset(0, 3),
+                //       ),
+                //     ],
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // )
+              ],
+            ),
+          ),
         ),
       ),
     );

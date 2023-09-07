@@ -213,12 +213,19 @@ class _HomePageState extends State<HomePage> {
                                         color: Color(0xffFED235),
                                       ),
                                     ),
-                                    child: Image.asset(
-                                      "images/plumber-making-ok-sign.png",
-                                      height: 150.h,
-                                      width: 133.w,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: item["imageUrls"][0] == null
+                                        ? Image.asset(
+                                            "images/plumber-making-ok-sign.png",
+                                            height: 150.h,
+                                            width: 133.w,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.network(
+                                            item["imageUrls"][0],
+                                            height: 150.h,
+                                            width: 133.w,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                   Expanded(
                                     child: Column(

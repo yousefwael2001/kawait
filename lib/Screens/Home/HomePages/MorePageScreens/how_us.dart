@@ -54,7 +54,30 @@ class _HowUsState extends State<HowUs> {
               height: 20.h,
             ),
             Text(
-              "قروب مدينة الكويت السكنية",
+              "مالك التطبيق",
+              style: GoogleFonts.tajawal(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold,
+                color: Color(0XFFFED235),
+              ),
+            ),
+            Text(
+              "م .نواف ممدوح الشمري",
+              style: GoogleFonts.tajawal(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold,
+                color: Color(0XFFFED235),
+              ),
+            ),
+            SizedBox(
+              height: 9.h,
+            ),
+            Image.asset('images/WhatsApp Image 2023-08-09 at 18.57.00.jpg'),
+            SizedBox(
+              height: 15.h,
+            ),
+            Text(
+              "مدينة الكويت السكنية",
               style: GoogleFonts.tajawal(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.bold,
@@ -65,7 +88,7 @@ class _HowUsState extends State<HowUs> {
               height: 9.h,
             ),
             Text(
-              "تطبيق قروب مدينة الكويت السكنية هو تطبيق يهدف إلى توفير وسيلة فعالة للترويج والدعاية للمشاريع الإنشائية والمقاولاتية سيقوم التطبيق بتوفير مجموعة من الميزات والخدمات التي تمكن المقاولين وشركات البناء من عرض أعمالهم والتواصل مع الجمهور المستهدف بطريقة مبتكرة وجذابة فيما يلي نموذج للمحتوى الكامل لتطبيق دعاية للمباني والمقاولات",
+              "تطبيق مدينة الكويت السكنية هو تطبيق يهدف إلى توفير وسيلة فعالة للترويج والدعاية للمشاريع الإنشائية والمقاولاتية سيقوم التطبيق بتوفير مجموعة من الميزات والخدمات التي تمكن المقاولين وشركات البناء من عرض أعمالهم والتواصل مع الجمهور المستهدف بطريقة مبتكرة وجذابة فيما يلي نموذج للمحتوى الكامل لتطبيق دعاية للمباني والمقاولات",
               style: GoogleFonts.tajawal(
                 fontSize: 12.sp,
                 color: Color(0XFF505050),
@@ -98,7 +121,7 @@ class _HowUsState extends State<HowUs> {
                     ),
                   ),
                   TextSpan(
-                    text: '\"قروب مدينة الكويت السكنية\"',
+                    text: '\"مدينة الكويت السكنية\"',
                     style: GoogleFonts.tajawal(
                       fontSize: 12.sp,
                       color: Color(0XFFFED235),

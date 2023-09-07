@@ -146,6 +146,7 @@ class FbAuthController with Helpers {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+    await AppSettingsPreferences().updateLoggedIn();
     Get.off(AuthScreen());
   }
 }

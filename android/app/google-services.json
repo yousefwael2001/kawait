@@ -14,6 +14,51 @@
       },
       "oauth_client": [
         {
+          "client_id": "1081719062021-hk329ibllgih9f4c53dlhrkkppgmb0iq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kawait",
+            "certificate_hash": "84713e2734bf64795f6c515180ff86dd136fffc7"
+          }
+        },
+        {
+          "client_id": "1081719062021-ttdokqedg1gca0a6sqmc5pv0j8k0vgo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxIIZ8KN1-LqOjHmHCuUaXg3K31HSNmSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081719062021-ttdokqedg1gca0a6sqmc5pv0j8k0vgo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081719062021:android:797f608dacb4a6c41d666c",
+        "android_client_info": {
+          "package_name": "com.kuwait.kawait"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081719062021-ij0ep620ojdp4ra98cvb1mjonh8jh6rl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kuwait.kawait",
+            "certificate_hash": "84713e2734bf64795f6c515180ff86dd136fffc7"
+          }
+        },
+        {
           "client_id": "1081719062021-ttdokqedg1gca0a6sqmc5pv0j8k0vgo1.apps.googleusercontent.com",
           "client_type": 3
         }

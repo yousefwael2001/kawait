@@ -607,9 +607,8 @@ class _AddServiceState extends State<AddService> with Helpers {
               SizedBox(
                 height: 6.h,
               ),
-              TextField(
+              TextFormField(
                 controller: _servicedeslong,
-                obscureText: false,
                 keyboardType: TextInputType.text,
                 minLines: 6,
                 maxLines: 12,
@@ -620,7 +619,6 @@ class _AddServiceState extends State<AddService> with Helpers {
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(18),
                   counterText: "",
-                  hintMaxLines: 1,
                   alignLabelWithHint: true,
                   labelText: "وصف طويل للخدمة",
                   labelStyle: TextStyle(
@@ -750,17 +748,7 @@ class _AddServiceState extends State<AddService> with Helpers {
               ),
             ],
           ),
-          SizedBox(
-            height: 11.h,
-          ),
-          TextFieldStyle(
-            isenablelable: true,
-            lableText: "تاريخ انتهاء صلاحية الخدمة",
-            hintText: '19/5/2023',
-            codeTextController: _servicedata,
-            obscureText: false,
-            inputType: TextInputType.datetime,
-          ),
+          
           SizedBox(
             height: 11.h,
           ),
@@ -784,7 +772,7 @@ class _AddServiceState extends State<AddService> with Helpers {
               TextField(
                 controller: _serviceemail,
                 obscureText: false,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.emailAddress,
                 maxLines: 1,
                 maxLength: 50,
                 cursorHeight: 25.h,

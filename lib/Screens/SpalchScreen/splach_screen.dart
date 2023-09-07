@@ -25,7 +25,9 @@ class _SplachScreenState extends State<SplachScreen> {
       ),
       () {
         AppSettingsPreferences().state == "1"
-            ? Get.off(AuthScreen(), transition: Transition.circularReveal)
+            ? AppSettingsPreferences().user().id == ""
+                ? Get.off(AuthScreen(), transition: Transition.circularReveal)
+                : Get.to(HomeScreen(), arguments: "1")
             : Get.off(OnBoardingScreen(),
                 transition: Transition.circularReveal);
       },

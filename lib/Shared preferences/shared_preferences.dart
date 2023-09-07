@@ -52,6 +52,7 @@ class AppSettingsPreferences {
   Future<void> updateLoggedIn() async {
     print(_sharedPreferences.getString('token'));
     await _sharedPreferences.setString('token', '');
+    await _sharedPreferences.setString('id', '');
     print(_sharedPreferences.getString('token'));
   }
 

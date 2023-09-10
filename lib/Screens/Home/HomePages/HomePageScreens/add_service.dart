@@ -29,7 +29,7 @@ class _AddServiceState extends State<AddService> with Helpers {
   late TextEditingController _servicedesshort;
   late TextEditingController _servicedeslong;
   late TextEditingController _serviceprice;
-  late TextEditingController _servicedata;
+  // late TextEditingController _servicedata;
   late TextEditingController _serviceemail;
   late TextEditingController _servicephone;
   final ImagePicker _imagePicker = ImagePicker();
@@ -55,7 +55,7 @@ class _AddServiceState extends State<AddService> with Helpers {
     _servicedesshort = TextEditingController();
     _servicedeslong = TextEditingController();
     _serviceprice = TextEditingController();
-    _servicedata = TextEditingController();
+    // _servicedata = TextEditingController();
     _serviceemail = TextEditingController();
     _servicephone = TextEditingController();
   }
@@ -66,7 +66,7 @@ class _AddServiceState extends State<AddService> with Helpers {
     _servicedesshort.dispose();
     _servicedeslong.dispose();
     _serviceprice.dispose();
-    _servicedata.dispose();
+    // _servicedata.dispose();
     _serviceemail.dispose();
     _servicephone.dispose();
     super.dispose();
@@ -171,7 +171,7 @@ class _AddServiceState extends State<AddService> with Helpers {
           'shortDescription': _servicedesshort.text,
           'longDescription': _servicedeslong.text,
           'price': _serviceprice.text,
-          'dateOfEnd': _servicedata.text,
+          // 'dateOfEnd': _servicedata.text,
           'email': _serviceemail.text,
           'phone': _servicephone.text,
           'imageUrls': uploadedImageUrls,
@@ -217,7 +217,7 @@ class _AddServiceState extends State<AddService> with Helpers {
           'shortDescription': _servicedesshort.text,
           'longDescription': _servicedeslong.text,
           'price': _serviceprice.text,
-          'dateOfEnd': _servicedata.text,
+          // 'dateOfEnd': _servicedata.text,
           'email': _serviceemail.text,
           'phone': _servicephone.text,
           'imageUrls': uploadedImageUrls,
@@ -256,7 +256,7 @@ class _AddServiceState extends State<AddService> with Helpers {
         _servicedesshort.text = "";
         _servicedeslong.text = "";
         _serviceprice.text = "";
-        _servicedata.text = "";
+        // _servicedata.text = "";
         _serviceemail.text = "";
         _servicephone.text = "";
         uploadedImageUrls.clear();
@@ -612,7 +612,7 @@ class _AddServiceState extends State<AddService> with Helpers {
                 keyboardType: TextInputType.text,
                 minLines: 6,
                 maxLines: 12,
-                maxLength: 50,
+                // maxLength: 50,
                 cursorHeight: 25.h,
                 textAlign: TextAlign.start,
                 textAlignVertical: TextAlignVertical.top,
@@ -748,7 +748,6 @@ class _AddServiceState extends State<AddService> with Helpers {
               ),
             ],
           ),
-          
           SizedBox(
             height: 11.h,
           ),
@@ -779,8 +778,8 @@ class _AddServiceState extends State<AddService> with Helpers {
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(18),
                   counterText: "",
-                  labelText: "yousefael2020@gmail.com",
-                  hintText: "yousefael2020@gmail.com",
+                  // labelText: "yousefael2020@gmail.com",
+                  hintText: "example@gmail.com",
                   labelStyle: TextStyle(
                       color: Color(0XFFBCBCBC),
                       fontWeight: FontWeight.normal,
@@ -861,7 +860,12 @@ class _AddServiceState extends State<AddService> with Helpers {
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(18),
                   counterText: "",
-                  labelText: "0595967150",
+                  // labelText: "059555555",
+                  hintText: "أدخل رقم الهاتف",
+                  hintStyle: TextStyle(
+                      color: Color(0XFFBCBCBC),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 18),
                   labelStyle: TextStyle(
                       color: Color(0XFFBCBCBC),
                       fontWeight: FontWeight.normal,
@@ -1055,7 +1059,7 @@ class _AddServiceState extends State<AddService> with Helpers {
         defaultValueCategory.isNotEmpty &&
         _servicedeslong.text.isNotEmpty &&
         _serviceprice.text.isNotEmpty &&
-        _servicedata.text.isNotEmpty &&
+        // _servicedata.text.isNotEmpty &&
         _serviceemail.text.isNotEmpty &&
         _servicephone.text.isNotEmpty) {
       return true;

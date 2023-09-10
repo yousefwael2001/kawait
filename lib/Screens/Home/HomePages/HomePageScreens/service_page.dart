@@ -1,7 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kawait/Shared%20preferences/shared_preferences.dart';
+import 'package:kawait/utils/helpers.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ServicePage extends StatefulWidget {
@@ -11,7 +15,7 @@ class ServicePage extends StatefulWidget {
   State<ServicePage> createState() => _ServicePageState();
 }
 
-class _ServicePageState extends State<ServicePage> {
+class _ServicePageState extends State<ServicePage> with Helpers {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
@@ -44,6 +48,9 @@ class _ServicePageState extends State<ServicePage> {
         body: SafeArea(
           child: ListView(
             children: [
+              SizedBox(
+                height: 0.h,
+              ),
               Visibility(
                 visible: widget.service_data['imageUrls'] != null,
                 child: Stack(
@@ -67,7 +74,7 @@ class _ServicePageState extends State<ServicePage> {
                                 ),
                                 child: Image.network(
                                   item,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ),
@@ -157,15 +164,110 @@ class _ServicePageState extends State<ServicePage> {
                     SizedBox(
                       height: 23.h,
                     ),
-                    Text(
-                      widget.service_data['shortDescription'] == null
-                          ? ""
-                          : widget.service_data['shortDescription'],
-                      style: GoogleFonts.tajawal(
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xffFED235),
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          widget.service_data['shortDescription'] == null
+                              ? ""
+                              : widget.service_data['shortDescription'],
+                          style: GoogleFonts.tajawal(
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xffFED235),
+                          ),
+                        ),
+                        Spacer(),
+                        Visibility(
+                          visible: AppSettingsPreferences().user().email ==
+                              "bkerziara11@gmail.com",
+                          child: IconButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "هل تريد حذف الخدمة؟",
+                                          style: GoogleFonts.tajawal(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        Row(
+                                          children: [
+                                            ElevatedButton(
+                                              onPressed: () async {
+                                                await deleteProductByName(widget
+                                                    .service_data['name']);
+                                              },
+                                              child: Text(
+                                                "حذف",
+                                                style: GoogleFonts.tajawal(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Color(0xffFED235),
+                                                minimumSize: Size(100.w, 40.h),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.r),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 15.w,
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              child: Text(
+                                                "رجوع",
+                                                style: GoogleFonts.tajawal(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color(0xffFED235),
+                                                ),
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  side: BorderSide(
+                                                    color: Color(0xffFED235),
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                    10.r,
+                                                  ),
+                                                ),
+                                                backgroundColor: Colors.white,
+                                                minimumSize: Size(100.w, 40.h),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.redAccent,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                     SizedBox(
                       height: 7.h,
@@ -295,5 +397,61 @@ class _ServicePageState extends State<ServicePage> {
             ],
           ),
         ));
+  }
+
+  Future<void> deleteProductByName(String productName) async {
+    try {
+      // Query the 'products' collection for the product name.
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('products')
+          .where('productName', isEqualTo: productName)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // If the product is found in the 'products' collection, delete it.
+        final DocumentSnapshot productSnapshot = querySnapshot.docs.first;
+        final productId = productSnapshot.id;
+
+        await FirebaseFirestore.instance
+            .collection('products')
+            .doc(productId)
+            .delete();
+        showSnackBar(context: context, message: "تم حذف الخدمة بنجاح");
+
+        print('Product deleted successfully');
+      } else {
+        // If the product is not found in the 'products' collection,
+        // check the subcategories for the product.
+        final QuerySnapshot subcategoryQuerySnapshot =
+            await FirebaseFirestore.instance
+                .collectionGroup('products') // Query all product subcollections
+                .where('productName', isEqualTo: productName)
+                .get();
+
+        if (subcategoryQuerySnapshot.docs.isNotEmpty) {
+          // If the product is found in a subcategory, delete it.
+          final DocumentSnapshot productSnapshot =
+              subcategoryQuerySnapshot.docs.first;
+          final productId = productSnapshot.id;
+          final subcategoryId = productSnapshot.reference.parent.parent!.id;
+
+          await FirebaseFirestore.instance
+              .collection('subcategories')
+              .doc(subcategoryId)
+              .collection('products')
+              .doc(productId)
+              .delete();
+          showSnackBar(context: context, message: "تم حذف الخدمة بنجاح");
+
+          print('Product deleted from subcategory successfully');
+        } else {
+          print('Product not found');
+        }
+      }
+    } catch (e) {
+      showSnackBar(context: context, message: "خطأ في حذف الخدمة");
+
+      print('Error deleting product: $e');
+    }
   }
 }

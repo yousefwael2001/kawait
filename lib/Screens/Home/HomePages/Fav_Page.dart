@@ -189,17 +189,37 @@ class _FavPageState extends State<FavPage> with Helpers {
               ),
               Padding(
                 padding: EdgeInsets.only(left: 30.w, top: 10.4.h),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: InkWell(
-                    onTap: () {
-                      _removeFavoriteItem(favoriteItem);
-                    },
-                    child: Icon(
-                      Icons.favorite,
-                      color: Color(0XFFFF1E1E),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: InkWell(
+                        onTap: () {
+                          _removeFavoriteItem(favoriteItem);
+                          setState(() {
+                            favorites.remove(favoriteItem);
+                          });
+                        },
+                        child: Icon(
+                          Icons.delete_forever_outlined,
+                          color: Color(0XFFFF1E1E),
+                        ),
+                      ),
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: InkWell(
+                        onTap: () {
+                          _removeFavoriteItem(favoriteItem);
+                        },
+                        child: Icon(
+                          Icons.favorite,
+                          color: Color(0XFFFF1E1E),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               )
             ],

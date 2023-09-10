@@ -328,12 +328,19 @@ class _CategoryPageState extends State<CategoryPage> {
                                         color: Color(0xffFED235),
                                       ),
                                     ),
-                                    child: Image.asset(
-                                      "images/plumber-making-ok-sign.png",
-                                      height: 150.h,
-                                      width: 133.w,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: List.from(item["imageUrls"]).isEmpty
+                                        ? Image.asset(
+                                            "images/plumber-making-ok-sign.png",
+                                            height: 150.h,
+                                            width: 133.w,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.network(
+                                            List.from(item["imageUrls"]).first,
+                                            height: 150.h,
+                                            width: 133.w,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                   Expanded(
                                     child: Column(
@@ -370,6 +377,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                         ),
                                         SizedBox(
                                           width: 123.w,
+                                          height: 70.h,
                                           child: Text(
                                             item["longDescription"],
                                             style: GoogleFonts.tajawal(

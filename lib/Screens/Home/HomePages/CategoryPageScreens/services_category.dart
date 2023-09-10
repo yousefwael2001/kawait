@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/Furniture_Page.dart';
 import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/Real_Estates_Page.dart';
 
+import '../HomePageScreens/service_page.dart';
+
 class ServiceCategory extends StatefulWidget {
   ServiceCategory({super.key, required this.Category_Name});
   final String Category_Name;
@@ -126,108 +128,116 @@ class _ServiceCategoryState extends State<ServiceCategory> {
 
                     return Stack(
                       children: [
-                        Container(
-                          decoration: BoxDecoration(color: Color(0xffF9F9F9)),
-                          margin: EdgeInsets.only(
-                              right: 15.w, left: 15.w, bottom: 10.h),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              imageUrls.length == 0
-                                  ? Image.asset(
-                                      "images/buoyant-successful-handyman-posing-against-white-wall.png",
-                                    )
-                                  : SizedBox(
-                                      width: 125.w,
-                                      height: 95.h,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(8.r),
-                                          bottomRight: Radius.circular(8.r),
-                                        ),
-                                        child: Image.network(
-                                          imageUrls[0],
-                                          width: 70.w,
-                                          height: 50.h,
-                                          fit: BoxFit.cover,
+                        InkWell(
+                          onTap: () {
+                            Get.to(() => ServicePage(
+                                  service_data: productData,
+                                ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(color: Color(0xffF9F9F9)),
+                            margin: EdgeInsets.only(
+                                right: 15.w, left: 15.w, bottom: 10.h),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                imageUrls.length == 0
+                                    ? Image.asset(
+                                        "images/buoyant-successful-handyman-posing-against-white-wall.png",
+                                      )
+                                    : SizedBox(
+                                        width: 125.w,
+                                        height: 95.h,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(8.r),
+                                            bottomRight: Radius.circular(8.r),
+                                          ),
+                                          child: Image.network(
+                                            imageUrls[0],
+                                            width: 70.w,
+                                            height: 50.h,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                              SizedBox(
-                                width: 12.w,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 18.h,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          productData['name'],
-                                          style: GoogleFonts.tajawal(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        Text(
-                                          productData['categoryName'] == null
-                                              ? ""
-                                              : productData['categoryName'],
-                                          style: GoogleFonts.tajawal(
-                                            fontSize: 9.sp,
-                                            color: Color(0xff6D6D6D),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 11.h,
-                                    ),
-                                    Text(
-                                      productData['shortDescription'] == null
-                                          ? ""
-                                          : productData['shortDescription'],
-                                      style: GoogleFonts.tajawal(
-                                        fontSize: 10.sp,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 9.h,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .start, // Move this row to the left
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Spacer(),
-                                        Text(
-                                          productData['price'] == null
-                                              ? ""
-                                              : productData['price'] + "د.ك",
-                                          style: GoogleFonts.tajawal(
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xffFED235),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 15.w,
-                                        )
-                                      ],
-                                    )
-                                  ],
+                                SizedBox(
+                                  width: 12.w,
                                 ),
-                              )
-                            ],
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 18.h,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            productData['name'],
+                                            style: GoogleFonts.tajawal(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          Text(
+                                            productData['categoryName'] == null
+                                                ? ""
+                                                : productData['categoryName'],
+                                            style: GoogleFonts.tajawal(
+                                              fontSize: 9.sp,
+                                              color: Color(0xff6D6D6D),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 11.h,
+                                      ),
+                                      Text(
+                                        productData['shortDescription'] == null
+                                            ? ""
+                                            : productData['shortDescription'],
+                                        style: GoogleFonts.tajawal(
+                                          fontSize: 10.sp,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 9.h,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .start, // Move this row to the left
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Spacer(),
+                                          Text(
+                                            productData['price'] == null
+                                                ? ""
+                                                : productData['price'] + "د.ك",
+                                            style: GoogleFonts.tajawal(
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xffFED235),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 15.w,
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         Padding(
@@ -235,7 +245,7 @@ class _ServiceCategoryState extends State<ServiceCategory> {
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: Icon(
-                              Icons.favorite,
+                              Icons.favorite_border,
                               color: Color(0XFFFF1E1E),
                             ),
                           ),

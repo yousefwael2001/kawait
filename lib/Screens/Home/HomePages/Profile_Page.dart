@@ -104,7 +104,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.high,
                     )
-                  : Image.network(AppSettingsPreferences().user().imageURL!),
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(50.r),
+                      child: Image.network(
+                        AppSettingsPreferences().user().imageURL!,
+                        width: 80,
+                        fit: BoxFit.fill,
+                      )),
               backgroundColor: Colors.transparent,
             ),
             SizedBox(

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kawait/Screens/Home/HomePages/MorePageScreens/condetions_of_use.dart';
 import 'package:kawait/widgets/list_tile_style.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'MorePageScreens/how_us.dart';
@@ -127,7 +128,8 @@ class _MorePageState extends State<MorePage> {
             ListTileStyleWidget(
               leadingImage: 'images/Group 40349.png',
               onTap: () {
-                // Get.to(() => EditPasswordPage());
+                Share.share(
+                    "https://play.google.com/store/apps/details?id=com.kuwait.kawait&pli=1");
               },
               title: "مشاركة التطبيق",
             ),

@@ -58,7 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
         leading: SizedBox(),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
             icon: Icon(
               Icons.navigate_next_sharp,
               color: Colors.black,

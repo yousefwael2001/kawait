@@ -74,7 +74,9 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
         leading: SizedBox(),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
             icon: Icon(
               Icons.navigate_next_sharp,
               color: Colors.black,
@@ -101,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
                   TextFieldStyle(
                     isenablelable: true,
                     lableText: "الاسم",
-                    hintText: 'يوسف الشياح',
+                    hintText: "",
                     codeTextController: _nameController,
                     obscureText: false,
                     inputType: TextInputType.name,
@@ -112,7 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
                   TextFieldStyle(
                     isenablelable: true,
                     lableText: 'الايميل',
-                    hintText: "yousefael2020@gmail.com",
+                    hintText: "",
                     codeTextController: _emailController,
                     obscureText: false,
                     inputType: TextInputType.emailAddress,
@@ -123,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
                   TextFieldStyle(
                     isenablelable: true,
                     lableText: 'رقم الهاتف',
-                    hintText: "0595967150",
+                    hintText: "",
                     codeTextController: _phoneController,
                     obscureText: false,
                     inputType: TextInputType.phone,
@@ -134,10 +136,10 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
                   TextFieldStyle(
                     isenablelable: true,
                     lableText: "اسم الشركة",
-                    hintText: "اسم الشركة",
+                    hintText: "",
                     codeTextController: _companyNameController,
                     obscureText: false,
-                    inputType: TextInputType.phone,
+                    inputType: TextInputType.name,
                   ),
                   SizedBox(
                     height: 9.h,

@@ -189,7 +189,7 @@ class _CategoryPageState extends State<CategoryPage> {
     Item(name: 'كاميرات مراقبة', imageUrl: 'images/04.png'),
     Item(name: 'ستلايت', imageUrl: 'images/Group 43618.png'),
     Item(name: 'خدمات اعلانية', imageUrl: 'images/Artboard – 1.png'),
-    Item(name: 'تنقيب ومعاملات', imageUrl: 'images/Group 43661.png'),
+    Item(name: 'تعقيب معاملات', imageUrl: 'images/Group 43661.png'),
     Item(name: 'متفرقات', imageUrl: 'images/12.png'),
     Item(name: 'مكافحة حشرات', imageUrl: 'images/Group 43830.png'),
     Item(name: 'خدمات مختلفة', imageUrl: 'images/Group 43811.png'),

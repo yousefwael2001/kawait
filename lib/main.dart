@@ -10,7 +10,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await AppSettingsPreferences().intiPreferences();
-
   runApp(const MyApp());
 }
 

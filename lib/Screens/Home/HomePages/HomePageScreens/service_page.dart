@@ -20,7 +20,7 @@ class _ServicePageState extends State<ServicePage> with Helpers {
   final CarouselController _controller = CarouselController();
 
   void whatsAppOpen(String number) async {
-    var url = 'http://wa.me/$number?text=Hello';
+    var url = 'http://wa.me/$number?text=مرحبا';
     await launch(url);
   }
 
@@ -205,8 +205,8 @@ class _ServicePageState extends State<ServicePage> with Helpers {
                                           children: [
                                             ElevatedButton(
                                               onPressed: () async {
-                                                await deleteProductByName(widget
-                                                    .service_data['name']);
+                                                await removeProduct(
+                                                    widget.service_data['id']);
                                               },
                                               child: Text(
                                                 "حذف",
@@ -315,23 +315,28 @@ class _ServicePageState extends State<ServicePage> with Helpers {
                     SizedBox(
                       height: 6.h,
                     ),
-                    Container(
-                      height: 40.h,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color:
-                            Color.fromARGB(255, 228, 227, 227).withOpacity(1),
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 10.w),
-                          child: Text(
-                            widget.service_data["user_phone"],
-                            style: GoogleFonts.tajawal(
-                              fontSize: 15.sp,
-                              color: Color(0xff7E7E7E),
+                    InkWell(
+                      onTap: () {
+                        makePhoneCall("+965" + widget.service_data["phone"]);
+                      },
+                      child: Container(
+                        height: 40.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color:
+                              Color.fromARGB(255, 228, 227, 227).withOpacity(1),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 10.w),
+                            child: Text(
+                              "+965" + widget.service_data["phone"],
+                              style: GoogleFonts.tajawal(
+                                fontSize: 15.sp,
+                                color: Color(0xff7E7E7E),
+                              ),
                             ),
                           ),
                         ),
@@ -360,7 +365,8 @@ class _ServicePageState extends State<ServicePage> with Helpers {
                           color: Colors.black,
                         ),
                         onTap: () {
-                          whatsAppOpen(widget.service_data['user_phone']);
+                          whatsAppOpen(
+                              "+965" + widget.service_data['user_phone']);
                         },
                       ),
                     ),
@@ -399,59 +405,78 @@ class _ServicePageState extends State<ServicePage> with Helpers {
         ));
   }
 
-  Future<void> deleteProductByName(String productName) async {
+  Future<void> removeProduct(String productId) async {
     try {
-      // Query the 'products' collection for the product name.
-      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('products')
-          .where('productName', isEqualTo: productName)
-          .get();
+      // Get a reference to the product document
+      DocumentReference productRef =
+          FirebaseFirestore.instance.collection('products').doc(productId);
 
-      if (querySnapshot.docs.isNotEmpty) {
-        // If the product is found in the 'products' collection, delete it.
-        final DocumentSnapshot productSnapshot = querySnapshot.docs.first;
-        final productId = productSnapshot.id;
+      // Delete the product document
+      await productRef.delete();
+      showSnackBar(context: context, message: "تم حذف الخدمة بنجاح");
+      print('Product with ID $productId removed successfully.');
+      Get.back();
+      Get.back();
+    } catch (e) {
+      showSnackBar(context: context, message: "خطأ في حذف الخدمة", error: true);
+      Get.back();
 
-        await FirebaseFirestore.instance
-            .collection('products')
-            .doc(productId)
-            .delete();
-        showSnackBar(context: context, message: "تم حذف الخدمة بنجاح");
+      print('Error removing product: $e');
+    }
+  }
 
-        print('Product deleted successfully');
-      } else {
-        // If the product is not found in the 'products' collection,
-        // check the subcategories for the product.
-        final QuerySnapshot subcategoryQuerySnapshot =
-            await FirebaseFirestore.instance
-                .collectionGroup('products') // Query all product subcollections
-                .where('productName', isEqualTo: productName)
+  Future<List<Map<String, dynamic>>> getAllProducts(String productName) async {
+    List<Map<String, dynamic>> productsList = [];
+
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collectionGroup('products').get();
+
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        Map<String, dynamic>? productData = doc.data() as Map<String, dynamic>?;
+
+        if (productData != null) {
+          String? categoryId = productData['categoryId'];
+
+          if (categoryId != null) {
+            DocumentSnapshot categorySnapshot = await FirebaseFirestore.instance
+                .collection('categories')
+                .doc(categoryId)
                 .get();
+            categorySnapshot.id;
 
-        if (subcategoryQuerySnapshot.docs.isNotEmpty) {
-          // If the product is found in a subcategory, delete it.
-          final DocumentSnapshot productSnapshot =
-              subcategoryQuerySnapshot.docs.first;
-          final productId = productSnapshot.id;
-          final subcategoryId = productSnapshot.reference.parent.parent!.id;
+            Map<String, dynamic>? categoryData =
+                categorySnapshot.data() as Map<String, dynamic>?;
 
-          await FirebaseFirestore.instance
-              .collection('subcategories')
-              .doc(subcategoryId)
-              .collection('products')
-              .doc(productId)
-              .delete();
-          showSnackBar(context: context, message: "تم حذف الخدمة بنجاح");
+            if (categoryData != null) {
+              productData['categoryName'] = categoryData['name'];
+            }
+          }
 
-          print('Product deleted from subcategory successfully');
-        } else {
-          print('Product not found');
+          // Check if the current product matches the one to be removed
+          if (productData['productName'] == productName) {
+            // Get the product document ID and remove it
+            String productId = doc.id;
+            await removeProduct(productId);
+          } else {
+            // Add the product data to the list
+            productsList.add(productData);
+          }
         }
       }
     } catch (e) {
-      showSnackBar(context: context, message: "خطأ في حذف الخدمة");
+      print('Error fetching products: $e');
+    }
 
-      print('Error deleting product: $e');
+    return productsList;
+  }
+
+  void makePhoneCall(String phoneNumber) async {
+    final url = 'tel:$phoneNumber';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 }

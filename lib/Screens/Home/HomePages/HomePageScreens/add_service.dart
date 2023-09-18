@@ -166,7 +166,11 @@ class _AddServiceState extends State<AddService> with Helpers {
             .collection('categories')
             .doc(category_name)
             .collection('products');
+
+        DocumentReference productDocRef = categoryCollection.doc();
+
         await categoryCollection.add({
+          'id': productDocRef.id,
           'name': _servicename.text,
           'shortDescription': _servicedesshort.text,
           'longDescription': _servicedeslong.text,
@@ -213,6 +217,7 @@ class _AddServiceState extends State<AddService> with Helpers {
 
         // Create a map containing the product data
         Map<String, dynamic> productData = {
+          'id': productDocRef.id,
           'name': _servicename.text,
           'shortDescription': _servicedesshort.text,
           'longDescription': _servicedeslong.text,

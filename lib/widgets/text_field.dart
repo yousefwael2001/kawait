@@ -48,6 +48,7 @@ class TextFieldStyle extends StatelessWidget {
           maxLines: 1,
           maxLength: 50,
           cursorHeight: 25.h,
+          textDirection: TextDirection.rtl,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(18),
             counterText: "",

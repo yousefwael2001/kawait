@@ -124,10 +124,12 @@ class _DetailsPageState extends State<DetailsPage> with Helpers {
       // Update the user's data using the user ID
       showSnackBar(
           context: context, message: "تم تعديل البيانات", error: false);
+      Get.back();
       print('User data updated successfully');
     } catch (error) {
       showSnackBar(
           context: context, message: "خطأ في تعديل البيانات", error: true);
+      Get.back();
 
       print('Error updating user data: $error');
     }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/service_subcategory_page.dart';
 import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/services_category.dart';
 
 class FurniturePage extends StatefulWidget {
@@ -100,8 +101,8 @@ class _FurniturePageState extends State<FurniturePage> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Get.to(
-                            ServiceCategory(Category_Name: items[index].name));
+                        Get.to(ServiceSubCategoryPage(
+                            Category_Name: items[index].name));
                       },
                       child: SizedBox(
                         height: 134.h,

@@ -1,9 +1,14 @@
+// import 'package:admob_flutter/admob_flutter.dart';
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kawait/Screens/Auth/Login_Screen.dart';
 import 'package:kawait/Screens/Home/Home_Screen.dart';
+
+import '../../Service/ads_mobile_service.dart';
+import '../../Shared preferences/shared_preferences.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -13,6 +18,129 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  late AdmobInterstitial interstitialAd;
+  late AdmobInterstitial interstitialAd1;
+  GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    interstitialAd = AdmobInterstitial(
+      adUnitId: AdHelper.interstitialAdUnitId,
+      listener: (AdmobAdEvent event, Map<String, dynamic>? args) {
+        if (event == AdmobAdEvent.closed) interstitialAd.load();
+        handleEvent(event, args, 'Interstitial');
+      },
+    );
+    interstitialAd.load();
+
+    interstitialAd1 = AdmobInterstitial(
+      adUnitId: AdHelper.interstitialAdUnitId,
+      listener: (AdmobAdEvent event, Map<String, dynamic>? args) {
+        if (event == AdmobAdEvent.closed) interstitialAd1.load();
+        handleEvent1(event, args, 'Interstitial');
+      },
+    );
+    interstitialAd1.load();
+  }
+
+  void handleEvent(
+      AdmobAdEvent event, Map<String, dynamic>? args, String adType) {
+    switch (event) {
+      case AdmobAdEvent.loaded:
+        // showSnackBar('New Admob $adType Ad loaded!');
+        break;
+      case AdmobAdEvent.opened:
+        // showSnackBar('Admob $adType Ad opened!');
+        break;
+      case AdmobAdEvent.closed:
+        Get.to(() => LoginScreen());
+        // showSnackBar('Admob $adType Ad closed!');
+        break;
+      case AdmobAdEvent.failedToLoad:
+        // showSnackBar('Admob $adType failed to load. :(');
+        break;
+      case AdmobAdEvent.rewarded:
+        showDialog(
+          context: scaffoldState.currentContext!,
+          builder: (BuildContext context) {
+            return WillPopScope(
+              onWillPop: () async {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                return true;
+              },
+              child: AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text('Reward callback fired. Thanks Andrew!'),
+                    Text('Type: ${args!['type']}'),
+                    Text('Amount: ${args['amount']}'),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+        break;
+      default:
+    }
+  }
+
+  void handleEvent1(
+      AdmobAdEvent event, Map<String, dynamic>? args, String adType) {
+    switch (event) {
+      case AdmobAdEvent.loaded:
+        // showSnackBar('New Admob $adType Ad loaded!');
+        break;
+      case AdmobAdEvent.opened:
+        // showSnackBar('Admob $adType Ad opened!');
+        break;
+      case AdmobAdEvent.closed:
+        Get.to(() => HomeScreen(), arguments: "0");
+
+        // showSnackBar('Admob $adType Ad closed!');
+        break;
+      case AdmobAdEvent.failedToLoad:
+        // showSnackBar('Admob $adType failed to load. :(');
+        break;
+      case AdmobAdEvent.rewarded:
+        showDialog(
+          context: scaffoldState.currentContext!,
+          builder: (BuildContext context) {
+            return WillPopScope(
+              onWillPop: () async {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                return true;
+              },
+              child: AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text('Reward callback fired. Thanks Andrew!'),
+                    Text('Type: ${args!['type']}'),
+                    Text('Amount: ${args['amount']}'),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+        break;
+      default:
+    }
+  }
+
+  void showSnackBar(String content) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(content),
+        duration: Duration(milliseconds: 1500),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,14 +155,11 @@ class _AuthScreenState extends State<AuthScreen> {
                 height: 100.h,
               ),
               Image.asset(
-                "images/Group 41472.png",
-                width: 150.w,
-                height: 150.h,
-                fit: BoxFit.contain,
+                "images/newLogo.png",
+                width: 250.w,
+                height: 200.h,
+                fit: BoxFit.cover,
                 filterQuality: FilterQuality.high,
-              ),
-              SizedBox(
-                height: 50.h,
               ),
               Text(
                 'مرحبا بك',
@@ -52,7 +177,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
               Text(
-                'في مدينة \nالكويت السكنية',
+                'في \n هوم كويت',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.tajawal(
                   fontSize: 30.sp,
@@ -71,7 +196,13 @@ class _AuthScreenState extends State<AuthScreen> {
                 height: 150.h,
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  // final isLoaded = await interstitialAd.isLoaded;
+                  // if (isLoaded ?? false) {
+                  //   interstitialAd.show();
+                  // } else {
+                  //   // showSnackBar('Interstitial ad is still loading...');
+                  // }
                   Get.to(() => LoginScreen());
                 },
                 child: Text(
@@ -99,8 +230,15 @@ class _AuthScreenState extends State<AuthScreen> {
                 height: 20.h,
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   Get.to(() => HomeScreen(), arguments: "0");
+
+                  // final isLoaded = await interstitialAd1.isLoaded;
+                  // if (isLoaded ?? false) {
+                  //   interstitialAd1.show();
+                  // } else {
+                  //   // showSnackBar('Interstitial ad is still loading...');
+                  // }
                 },
                 child: Text(
                   "تصفح",

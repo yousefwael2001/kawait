@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kawait/Screens/Home/HomePages/HomePageScreens/service_image.dart';
 import 'package:kawait/Screens/Home/HomePages/HomePageScreens/service_page.dart';
 import 'package:kawait/fb-controllers/fb_fire_store_controller.dart';
 
@@ -84,25 +85,28 @@ class _HomePageState extends State<HomePage> {
   List<Item> items = [
     Item(name: 'مقاولات', imageUrl: 'images/Group 41602.png'),
     Item(name: 'عقارات', imageUrl: 'images/Group 41603.png'),
-    Item(name: 'خدمات عقارية', imageUrl: 'images/Group 41638.png'),
+    Item(name: "ألمنيوم وشتر", imageUrl: 'images/Group 45848.png'),
+    Item(name: "مطابخ", imageUrl: 'images/298.jpg'),
+    Item(name: 'عمالة منزلية', imageUrl: 'images/Group 41951.png'),
     Item(name: 'نقل عفش', imageUrl: 'images/Group 41695.png'),
     Item(name: 'أثاث ومفروشات', imageUrl: 'images/Group 41696.png'),
-    Item(name: 'عمالة منزلية', imageUrl: 'images/Group 41951.png'),
     Item(name: 'التنظيف', imageUrl: 'images/Group 41947.png'),
-    Item(name: 'خدمات توصيل', imageUrl: 'images/Group 42084.png'),
-    Item(name: 'رخص تجارية', imageUrl: 'images/Group 42085.png'),
+    Item(name: 'مكافحة حشرات', imageUrl: 'images/Group 43830.png'),
+    Item(name: "مشاتل وحدائق", imageUrl: 'images/Scene-47.jpg'),
     Item(name: 'معدات ثقيلة', imageUrl: 'images/Group 42108.png'),
-    Item(name: 'معدات مهنية', imageUrl: 'images/Group 42496.png'),
     Item(name: 'تأجير معدات', imageUrl: 'images/Group 42616.png'),
     Item(name: 'تأجير وبيع مولدات', imageUrl: 'images/Illustration.png'),
     Item(name: 'محركات واليات', imageUrl: 'images/Group 42694.png'),
-    Item(name: 'أجهزة الكترونية', imageUrl: 'images/Group 42837.png'),
-    Item(name: 'كاميرات مراقبة', imageUrl: 'images/04.png'),
+    Item(name: 'مركبات', imageUrl: 'images/8150325.jpg'),
     Item(name: 'ستلايت', imageUrl: 'images/Group 43618.png'),
-    Item(name: 'خدمات اعلانية', imageUrl: 'images/Artboard – 1.png'),
-    Item(name: 'تنقيب ومعاملات', imageUrl: 'images/Group 43661.png'),
+    Item(name: 'كاميرات مراقبة', imageUrl: 'images/04.png'),
+    Item(name: 'معدات مهنية', imageUrl: 'images/Group 42496.png'),
+    Item(name: 'أجهزة الكترونية', imageUrl: 'images/Group 42837.png'),
+    Item(name: 'تعقيب معاملات', imageUrl: 'images/Group 43661.png'),
     Item(name: 'متفرقات', imageUrl: 'images/12.png'),
-    Item(name: 'خدمات مختلفة', imageUrl: 'images/Group 43811.png'),
+    Item(name: 'خدمات توصيل', imageUrl: 'images/Group 42084.png'),
+    Item(name: 'رخص تجارية', imageUrl: 'images/Group 42085.png'),
+    Item(name: 'خدمات اعلانية', imageUrl: 'images/Artboard – 1.png'),
   ];
 
   String filter = "";
@@ -116,22 +120,11 @@ class _HomePageState extends State<HomePage> {
         title: Column(
           children: [
             Image.asset(
-              "images/Group 41472.png",
-              height: 36.h,
-              width: 51.w,
-              fit: BoxFit.cover,
+              "images/newLogo.png",
+              height: 140.h,
+              width: 140.w,
+              fit: BoxFit.fill,
             ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              "مدينة الكويت السكنية",
-              style: GoogleFonts.tajawal(
-                fontSize: 9.sp,
-                color: Colors.black,
-              ),
-              textAlign: TextAlign.center,
-            )
           ],
         ),
         leadingWidth: 90.w,
@@ -233,6 +226,8 @@ class _HomePageState extends State<HomePage> {
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Padding(
                                           padding: EdgeInsets.only(top: 11.5.h),
@@ -274,20 +269,6 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         SizedBox(
                                           height: 8.5.h,
-                                        ),
-                                        Text(
-                                          "خصومات تصل ل",
-                                          style: GoogleFonts.tajawal(
-                                            fontSize: 10.sp,
-                                          ),
-                                        ),
-                                        Text(
-                                          "70%",
-                                          style: GoogleFonts.tajawal(
-                                            fontSize: 16.sp,
-                                            color: Color(0xffFED235),
-                                            fontWeight: FontWeight.bold,
-                                          ),
                                         ),
                                       ],
                                     ),
@@ -514,9 +495,11 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() => ServicePage(
-                                          service_data: productData,
-                                        ));
+                                    Get.to(
+                                      () => ServicePage(
+                                        service_data: productData,
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     decoration:

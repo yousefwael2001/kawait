@@ -213,6 +213,10 @@ class _AddServiceState extends State<AddService> with Helpers {
           setState(() {
             subCategoryName = defaultValueSubCategoryFurniture;
           });
+        } else if (defaultValueCategory == 'مركبات') {
+          setState(() {
+            subCategoryName = defaultValueSubCategoryEngines;
+          });
         }
 
         // Create a map containing the product data
@@ -281,29 +285,32 @@ class _AddServiceState extends State<AddService> with Helpers {
   final List<String> optionsCategory = [
     'مقاولات',
     'عقارات',
-    'خدمات عقارية',
+    "ألمنيوم وشتر",
+    "مطابخ",
+    'عمالة منزلية',
     'نقل عفش',
     'أثاث ومفروشات',
-    'عمالة منزلية',
     'التنظيف',
-    'خدمات توصيل',
-    'رخص تجارية',
+    'مكافحة حشرات',
+    "مشاتل وحدائق",
     'معدات ثقيلة',
-    'معدات مهنية',
     'تأجير معدات',
     'تأجير وبيع مولدات',
     'محركات واليات',
-    'أجهزة الكترونية',
-    'كاميرات مراقبة',
+    'مركبات',
     'ستلايت',
-    'خدمات اعلانية',
-    'تنقيب ومعاملات',
+    'كاميرات مراقبة',
+    'معدات مهنية',
+    'أجهزة الكترونية',
+    'تعقيب معاملات',
     'متفرقات',
-    'خدمات مختلفة',
+    'خدمات توصيل',
+    'رخص تجارية',
+    'خدمات اعلانية'
   ];
 
   // Define a default value for the dropdown
-  String defaultValueCategory = 'خدمات مختلفة';
+  String defaultValueCategory = "مقاولات";
 
   // Define a list of options for the dropdown
   final List<String> optionsSubCategoryConstruction = [
@@ -318,7 +325,6 @@ class _AddServiceState extends State<AddService> with Helpers {
     "صيانة أجهزة منزلية",
     'خزانات مياه',
     'حدادة',
-    'ألمنيوم',
     'مقاولات بناء',
     "كاشي وسيراميك",
     'فني زجاج',
@@ -343,12 +349,27 @@ class _AddServiceState extends State<AddService> with Helpers {
   String defaultValueSubCategoryFurniture = 'نشتري الأثاث المستعمل';
 
   final List<String> optionsSubCategoryRealEstates = [
+    'خدمات عقارية',
+
     "للبيع",
     "للايجار",
     "للبدل"
   ];
 
   String defaultValueSubCategoryRealEstates = "للبيع";
+
+  final List<String> optionsSubCategoryEngines = [
+    "مكاتب مركبات",
+    "بيع مركبات",
+    "تأجير مركبات",
+    "خدمة مركبات",
+  ];
+
+  String defaultValueSubCategoryEngines = "مكاتب مركبات";
+
+  final List<String> optionsSubCategoryNurseriesandGardens = ["منتجات زراعية"];
+
+  String defaultValueSubCategoryNurseriesandGardens = "منتجات زراعية";
 
   Widget subcategorydropdoun(String defaultValueCategory) {
     if (defaultValueCategory == "مقاولات") {
@@ -483,6 +504,98 @@ class _AddServiceState extends State<AddService> with Helpers {
               onChanged: (newValue) {
                 setState(() {
                   defaultValueSubCategoryFurniture = newValue!;
+                });
+              },
+            ),
+          ),
+        ],
+      );
+    } else if (defaultValueCategory == 'مركبات') {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "الفئة الفرعية",
+              style: GoogleFonts.tajawal(
+                fontSize: 16.sp,
+                fontStyle: FontStyle.normal,
+                color: Colors.black,
+              ),
+              textDirection: TextDirection.ltr,
+            ),
+          ),
+          SizedBox(
+            height: 6.h,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0), // Apply border radius
+              color: Color(0XFFF3F3F9), // Apply background color
+            ),
+            padding: EdgeInsets.symmetric(
+                horizontal: 16.0), // Add some horizontal padding
+            child: DropdownButton<String>(
+              underline: SizedBox(),
+              isExpanded: true,
+              value:
+                  defaultValueSubCategoryEngines, // Set the default value here
+              items: optionsSubCategoryEngines.map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (newValue) {
+                setState(() {
+                  defaultValueSubCategoryEngines = newValue!;
+                });
+              },
+            ),
+          ),
+        ],
+      );
+    } else if (defaultValueCategory == "مشاتل وحدائق") {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "الفئة الفرعية",
+              style: GoogleFonts.tajawal(
+                fontSize: 16.sp,
+                fontStyle: FontStyle.normal,
+                color: Colors.black,
+              ),
+              textDirection: TextDirection.ltr,
+            ),
+          ),
+          SizedBox(
+            height: 6.h,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0), // Apply border radius
+              color: Color(0XFFF3F3F9), // Apply background color
+            ),
+            padding: EdgeInsets.symmetric(
+                horizontal: 16.0), // Add some horizontal padding
+            child: DropdownButton<String>(
+              underline: SizedBox(),
+              isExpanded: true,
+              value:
+                  defaultValueSubCategoryNurseriesandGardens, // Set the default value here
+              items: optionsSubCategoryNurseriesandGardens.map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (newValue) {
+                setState(() {
+                  defaultValueSubCategoryNurseriesandGardens = newValue!;
                 });
               },
             ),
@@ -1018,6 +1131,12 @@ class _AddServiceState extends State<AddService> with Helpers {
                     category: defaultValueCategory);
               } else if (defaultValueCategory == 'أثاث ومفروشات') {
                 await performSave(defaultValueSubCategoryFurniture,
+                    category: defaultValueCategory);
+              } else if (defaultValueCategory == 'مركبات') {
+                await performSave(defaultValueSubCategoryEngines,
+                    category: defaultValueCategory);
+              } else if (defaultValueCategory == "مشاتل وحدائق") {
+                await performSave(defaultValueSubCategoryNurseriesandGardens,
                     category: defaultValueCategory);
               } else {
                 await performSave(null, category: defaultValueCategory);

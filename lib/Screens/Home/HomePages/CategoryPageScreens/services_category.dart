@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/Furniture_Page.dart';
 import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/Real_Estates_Page.dart';
 
+import '../HomePageScreens/service_image.dart';
 import '../HomePageScreens/service_page.dart';
 
 class ServiceCategory extends StatefulWidget {
@@ -87,7 +88,18 @@ class _ServiceCategoryState extends State<ServiceCategory> {
           ),
         ),
         leadingWidth: 90.w,
-        leading: SizedBox(),
+        leading: IconButton(
+          icon: Transform.rotate(
+            angle: -3.14,
+            child: Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.black,
+            ),
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
         actions: [
           Padding(
             padding: EdgeInsets.only(left: 15.w),

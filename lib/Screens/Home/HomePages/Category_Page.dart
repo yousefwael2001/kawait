@@ -11,6 +11,9 @@ import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/Real_Estates_P
 import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/services_category.dart';
 
 import 'CategoryPageScreens/Construction_Page.dart';
+import 'CategoryPageScreens/Engines_Page.dart';
+import 'CategoryPageScreens/Nurseries_and_Gardens.dart';
+import 'HomePageScreens/service_image.dart';
 import 'HomePageScreens/service_page.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -173,26 +176,28 @@ class _CategoryPageState extends State<CategoryPage> {
   List<Item> items = [
     Item(name: 'مقاولات', imageUrl: 'images/Group 41602.png'),
     Item(name: 'عقارات', imageUrl: 'images/Group 41603.png'),
-    Item(name: 'خدمات عقارية', imageUrl: 'images/Group 41638.png'),
+    Item(name: "ألمنيوم وشتر", imageUrl: 'images/Group 45848.png'),
+    Item(name: "مطابخ", imageUrl: 'images/298.jpg'),
+    Item(name: 'عمالة منزلية', imageUrl: 'images/Group 41951.png'),
     Item(name: 'نقل عفش', imageUrl: 'images/Group 41695.png'),
     Item(name: 'أثاث ومفروشات', imageUrl: 'images/Group 41696.png'),
-    Item(name: 'عمالة منزلية', imageUrl: 'images/Group 41951.png'),
     Item(name: 'التنظيف', imageUrl: 'images/Group 41947.png'),
-    Item(name: 'خدمات توصيل', imageUrl: 'images/Group 42084.png'),
-    Item(name: 'رخص تجارية', imageUrl: 'images/Group 42085.png'),
+    Item(name: 'مكافحة حشرات', imageUrl: 'images/Group 43830.png'),
+    Item(name: "مشاتل وحدائق", imageUrl: 'images/Scene-47.jpg'),
     Item(name: 'معدات ثقيلة', imageUrl: 'images/Group 42108.png'),
-    Item(name: 'معدات مهنية', imageUrl: 'images/Group 42496.png'),
     Item(name: 'تأجير معدات', imageUrl: 'images/Group 42616.png'),
     Item(name: 'تأجير وبيع مولدات', imageUrl: 'images/Illustration.png'),
     Item(name: 'محركات واليات', imageUrl: 'images/Group 42694.png'),
-    Item(name: 'أجهزة الكترونية', imageUrl: 'images/Group 42837.png'),
-    Item(name: 'كاميرات مراقبة', imageUrl: 'images/04.png'),
+    Item(name: 'مركبات', imageUrl: 'images/8150325.jpg'),
     Item(name: 'ستلايت', imageUrl: 'images/Group 43618.png'),
-    Item(name: 'خدمات اعلانية', imageUrl: 'images/Artboard – 1.png'),
+    Item(name: 'كاميرات مراقبة', imageUrl: 'images/04.png'),
+    Item(name: 'معدات مهنية', imageUrl: 'images/Group 42496.png'),
+    Item(name: 'أجهزة الكترونية', imageUrl: 'images/Group 42837.png'),
     Item(name: 'تعقيب معاملات', imageUrl: 'images/Group 43661.png'),
     Item(name: 'متفرقات', imageUrl: 'images/12.png'),
-    Item(name: 'مكافحة حشرات', imageUrl: 'images/Group 43830.png'),
-    Item(name: 'خدمات مختلفة', imageUrl: 'images/Group 43811.png'),
+    Item(name: 'خدمات توصيل', imageUrl: 'images/Group 42084.png'),
+    Item(name: 'رخص تجارية', imageUrl: 'images/Group 42085.png'),
+    Item(name: 'خدمات اعلانية', imageUrl: 'images/Artboard – 1.png'),
   ];
 
   Future<List<Map<String, dynamic>>>? _productsFuture;
@@ -346,6 +351,8 @@ class _CategoryPageState extends State<CategoryPage> {
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Padding(
                                           padding: EdgeInsets.only(top: 11.5.h),
@@ -387,20 +394,6 @@ class _CategoryPageState extends State<CategoryPage> {
                                         ),
                                         SizedBox(
                                           height: 8.5.h,
-                                        ),
-                                        Text(
-                                          "خصومات تصل ل",
-                                          style: GoogleFonts.tajawal(
-                                            fontSize: 10.sp,
-                                          ),
-                                        ),
-                                        Text(
-                                          "70%",
-                                          style: GoogleFonts.tajawal(
-                                            fontSize: 16.sp,
-                                            color: Color(0xffFED235),
-                                            fontWeight: FontWeight.bold,
-                                          ),
                                         ),
                                       ],
                                     ),
@@ -578,8 +571,12 @@ class _CategoryPageState extends State<CategoryPage> {
                                 Get.to(() => ConstructionPage());
                               } else if (index == 1) {
                                 Get.to(() => RealEstatesPage());
-                              } else if (index == 4) {
+                              } else if (index == 6) {
                                 Get.to(() => FurniturePage());
+                              } else if (index == 9) {
+                                Get.to(() => NurseriesandGardensPage());
+                              } else if (index == 13) {
+                                Get.to(() => EnginesPage());
                               } else {
                                 Get.to(
                                   () => ServiceCategory(
@@ -600,7 +597,10 @@ class _CategoryPageState extends State<CategoryPage> {
                                       borderRadius: BorderRadius.circular(8.r),
                                       color: Color(0XFFF4F4F4),
                                     ),
-                                    child: Image.asset(items[index].imageUrl),
+                                    child: Image.asset(
+                                      items[index].imageUrl,
+                                      fit: index == 21 ? BoxFit.fill : null,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 5.h,

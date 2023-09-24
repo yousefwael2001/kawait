@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kawait/Screens/Home/HomePages/HomePageScreens/service_image.dart';
+import 'package:kawait/Screens/Home/HomePages/HomePageScreens/service_video.dart';
 import 'package:kawait/Shared%20preferences/shared_preferences.dart';
 import 'package:kawait/utils/helpers.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,21 +26,47 @@ class _ServicePageState extends State<ServicePage> with Helpers {
     await launch(url);
   }
 
-  void _sendEmail() async {
-    final Uri _emailLaunchUri = Uri(
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((MapEntry<String, String> e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
+  void _composeMail() {
+// #docregion encode-query-parameters
+    final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: widget.service_data['user_email'],
-      queryParameters: {
-        'subject': 'طالب خدمة',
-        'body': 'السلام عليكم',
-      },
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'مرحبا',
+      }),
     );
 
-    if (await canLaunch(_emailLaunchUri.toString())) {
-      await launch(_emailLaunchUri.toString());
-    } else {
-      throw 'Could not launch email';
-    }
+    launchUrl(emailLaunchUri);
+// #enddocregion encode-query-parameters
+  }
+
+  Future<void> _sendEmail() async {
+    // final Uri _emailLaunchUri = Uri(
+    //   scheme: 'mailto',
+    //   path: widget.service_data['user_email'],
+    //   queryParameters: {
+    //     'subject': 'طالب خدمة',
+    //     'body': 'السلام عليكم',
+    //   },
+    // );
+
+    // try {
+    //   if (await canLaunchUrl(Uri.parse(_emailLaunchUri.toString()))) {
+    //     await launchUrl(Uri.parse(_emailLaunchUri.toString()));
+    //   } else {
+    //     throw 'Could not launch email: Email app not found.';
+    //   }
+    // } catch (e) {
+    //   print('Error launching email: $e');
+    //   // Handle the error gracefully, e.g., show an error message to the user.
+    // }
   }
 
   @override
@@ -67,14 +95,20 @@ class _ServicePageState extends State<ServicePage> with Helpers {
                                   bottomRight: Radius.circular(8.r),
                                 ),
                               ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(15.r),
-                                  bottomRight: Radius.circular(15.r),
-                                ),
-                                child: Image.network(
-                                  item,
-                                  fit: BoxFit.fill,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.to(() => ServiceImage(
+                                      service_data: widget.service_data));
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(15.r),
+                                    bottomRight: Radius.circular(15.r),
+                                  ),
+                                  child: Image.network(
+                                    item,
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
                             ),
@@ -129,6 +163,33 @@ class _ServicePageState extends State<ServicePage> with Helpers {
                         }).toList(),
                       ),
                     ),
+                    Positioned(
+                      top: 15.h,
+                      left: 10.w,
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 15.w),
+                          child: Transform.rotate(
+                            angle: -3.14,
+                            child: Container(
+                              height: 30.h,
+                              width: 30.w,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                              ),
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -178,7 +239,7 @@ class _ServicePageState extends State<ServicePage> with Helpers {
                         ),
                         Spacer(),
                         Visibility(
-                          visible: AppSettingsPreferences().user().email ==
+                          visible: AppSettingsPreferences().email ==
                               "bkerziara11@gmail.com",
                           child: IconButton(
                             onPressed: () {
@@ -302,6 +363,41 @@ class _ServicePageState extends State<ServicePage> with Helpers {
                         ),
                       ),
                     ]),
+                    widget.service_data["videoUrl"] == ""
+                        ? SizedBox()
+                        : SizedBox(
+                            height: 15.h,
+                          ),
+                    widget.service_data["videoUrl"] == ""
+                        ? SizedBox()
+                        : Container(
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 228, 227, 227)
+                                  .withOpacity(1),
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                            child: ListTile(
+                              leading: Icon(Icons.video_collection_outlined),
+                              title: Text(
+                                "الفيديو الخاص بالإعلان",
+                                style: GoogleFonts.tajawal(
+                                  fontSize: 17.sp,
+                                ),
+                              ),
+                              trailing: Icon(
+                                Icons.navigate_next_outlined,
+                                size: 30.r,
+                                color: Colors.black,
+                              ),
+                              onTap: () {
+                                Get.to(
+                                  () => ServiceVideo(
+                                    video_url: widget.service_data["videoUrl"],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                     SizedBox(
                       height: 16.h,
                     ),
@@ -393,13 +489,16 @@ class _ServicePageState extends State<ServicePage> with Helpers {
                           color: Colors.black,
                         ),
                         onTap: () {
-                          _sendEmail();
+                          _composeMail();
                         },
                       ),
                     )
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
             ],
           ),
         ));

@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/services_category.dart';
 
+import 'service_subcategory_page.dart';
+
 class ConstructionPage extends StatefulWidget {
   const ConstructionPage({super.key});
 
@@ -31,7 +33,6 @@ class _ConstructionPageState extends State<ConstructionPage> {
     Item(name: "صيانة أجهزة منزلية", imageUrl: 'images/Group 45444.png'),
     Item(name: 'خزانات مياه', imageUrl: 'images/Group 55868.png'),
     Item(name: 'حدادة', imageUrl: 'images/Group 45845.png'),
-    Item(name: 'ألمنيوم', imageUrl: 'images/Group 45848.png'),
     Item(name: 'مقاولات بناء', imageUrl: 'images/Group 45905.png'),
     Item(name: "كاشي وسيراميك", imageUrl: 'images/Group 46044.png'),
     Item(name: 'فني زجاج', imageUrl: 'images/Group 46175.png'),
@@ -115,8 +116,8 @@ class _ConstructionPageState extends State<ConstructionPage> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Get.to(
-                            ServiceCategory(Category_Name: items[index].name));
+                        Get.to(ServiceSubCategoryPage(
+                            Category_Name: items[index].name));
                       },
                       child: SizedBox(
                         height: 134.h,

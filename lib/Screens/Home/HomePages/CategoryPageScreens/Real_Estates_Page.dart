@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/service_subcategory_page.dart';
 import 'package:kawait/Screens/Home/HomePages/CategoryPageScreens/services_category.dart';
 
 class RealEstatesPage extends StatefulWidget {
@@ -21,6 +22,7 @@ class Item {
 
 class _RealEstatesPageState extends State<RealEstatesPage> {
   List<Item> items = [
+    Item(name: 'خدمات عقارية', imageUrl: 'images/Group 41638.png'),
     Item(name: 'للبيع', imageUrl: 'images/Group 47242.png'),
     Item(name: 'للايجار', imageUrl: 'images/Group 46921.png'),
     Item(name: "للبدل", imageUrl: 'images/Group 55869.png'),
@@ -98,8 +100,8 @@ class _RealEstatesPageState extends State<RealEstatesPage> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Get.to(
-                            ServiceCategory(Category_Name: items[index].name));
+                        Get.to(ServiceSubCategoryPage(
+                            Category_Name: items[index].name));
                       },
                       child: SizedBox(
                         height: 134.h,

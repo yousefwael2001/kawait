@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:kawait/Models/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,7 +55,8 @@ class AppSettingsPreferences {
     print(_sharedPreferences.getString('token'));
   }
 
-  String get token => _sharedPreferences.getString('token') ?? '';
+  String get id => _sharedPreferences.getString('id') ?? '';
+  String get email => _sharedPreferences.getString('email') ?? '';
 
   void handleClearPrefs() {
     _sharedPreferences.clear();

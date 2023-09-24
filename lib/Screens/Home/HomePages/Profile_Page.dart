@@ -7,8 +7,10 @@ import 'package:kawait/Shared%20preferences/shared_preferences.dart';
 import 'package:kawait/fb-controllers/fb_auth_controller.dart';
 import 'package:kawait/widgets/alert_dialog_widget.dart';
 import 'package:kawait/widgets/list_tile_style.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'AdsPage/ads_screen_managements.dart';
 import 'ProfilePageScreens/details_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -91,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
         decoration: BoxDecoration(
           color: Colors.white,
         ),
-        child: Column(
+        child: ListView(
           children: [
             SizedBox(
               height: 20.h,
@@ -116,11 +118,14 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               height: 11.h,
             ),
-            Text(
-              AppSettingsPreferences().user().name!,
-              style: GoogleFonts.tajawal(
-                fontSize: 16.sp,
-                color: Colors.black,
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                AppSettingsPreferences().user().name!,
+                style: GoogleFonts.tajawal(
+                  fontSize: 16.sp,
+                  color: Colors.black,
+                ),
               ),
             ),
             SizedBox(
@@ -132,6 +137,24 @@ class _ProfilePageState extends State<ProfilePage> {
                 Get.to(() => DetailsPage());
               },
               title: 'معلومات الحساب',
+            ),
+            Visibility(
+              visible:
+                  AppSettingsPreferences().email == "bkerziara11@gmail.com",
+              child: SizedBox(
+                height: 11.h,
+              ),
+            ),
+            Visibility(
+              visible:
+                  AppSettingsPreferences().email == "bkerziara11@gmail.com",
+              child: ListTileStyleWidget(
+                leadingImage: 'images/svgexport-6 (22).png',
+                onTap: () {
+                  Get.to(() => AdsManageScreen());
+                },
+                title: 'الخدمات المميزة',
+              ),
             ),
             SizedBox(
               height: 11.h,
@@ -149,7 +172,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ListTileStyleWidget(
               leadingImage: 'images/Group 40349.png',
               onTap: () {
-                // Get.to(() => EditPasswordPage());
+                Share.share(
+                    "https://play.google.com/store/apps/details?id=com.kuwait.kawait&pli=1");
               },
               title: 'مشاركة التطبيق',
             ),
@@ -183,152 +207,155 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               height: 35.h,
             ),
-            Column(
-              children: [
-                Text(
-                  "تابعنا على حساباتنا",
-                  style: GoogleFonts.tajawal(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                    shadows: [
-                      Shadow(
-                        color: Color(0xFFFED235),
-                        offset: Offset(2, 2),
+            SizedBox(
+              height: 250.h,
+              child: Column(
+                children: [
+                  Text(
+                    "تابعنا على حساباتنا",
+                    style: GoogleFonts.tajawal(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      shadows: [
+                        Shadow(
+                          color: Color(0xFFFED235),
+                          offset: Offset(2, 2),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 26.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          tikTokAppOpen();
+                        },
+                        child: CircleAvatar(
+                          radius: 25.r,
+                          child: Image.asset(
+                            "images/svgexport-17 (81).png",
+                            width: 20.w,
+                            height: 16.h,
+                          ),
+                          backgroundColor: Color(0xffF7F7F7),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 24.w,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          instegramAppOpen();
+                        },
+                        child: CircleAvatar(
+                          radius: 25.r,
+                          child: Image.asset(
+                            "images/Group 38378.png",
+                            width: 20.w,
+                            height: 16.h,
+                          ),
+                          backgroundColor: Color(0xffF7F7F7),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 24.w,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          facebookAppOpen();
+                        },
+                        child: CircleAvatar(
+                          radius: 25.r,
+                          child: Image.asset(
+                            "images/Path 66795.png",
+                            width: 20.w,
+                            height: 16.h,
+                          ),
+                          backgroundColor: Color(0xffF7F7F7),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 24.w,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          telagramAppOpen();
+                        },
+                        child: CircleAvatar(
+                          radius: 25.r,
+                          child: Image.asset(
+                            "images/svgexport-17 (83).png",
+                            width: 20.w,
+                            height: 16.h,
+                          ),
+                          backgroundColor: Color(0xffF7F7F7),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 14.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          snapshatAppOpen();
+                        },
+                        child: CircleAvatar(
+                          radius: 25.r,
+                          child: Image.asset(
+                            "images/svgexport-17 (80).png",
+                            width: 20.w,
+                            height: 16.h,
+                          ),
+                          backgroundColor: Color(0xffF7F7F7),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 24.w,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          youtubeAppOpen();
+                        },
+                        child: CircleAvatar(
+                          radius: 25.r,
+                          child: Image.asset(
+                            "images/svgexport-17 (79).png",
+                            width: 20.w,
+                            height: 16.h,
+                          ),
+                          backgroundColor: Color(0xffF7F7F7),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 24.w,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          twitterAppOpen();
+                        },
+                        child: CircleAvatar(
+                          radius: 25.r,
+                          child: Image.asset(
+                            "images/svgexport-17 (82).png",
+                            width: 20.w,
+                            height: 16.h,
+                          ),
+                          backgroundColor: Color(0xffF7F7F7),
+                        ),
                       ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 26.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        tikTokAppOpen();
-                      },
-                      child: CircleAvatar(
-                        radius: 25.r,
-                        child: Image.asset(
-                          "images/svgexport-17 (81).png",
-                          width: 20.w,
-                          height: 16.h,
-                        ),
-                        backgroundColor: Color(0xffF7F7F7),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 24.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        instegramAppOpen();
-                      },
-                      child: CircleAvatar(
-                        radius: 25.r,
-                        child: Image.asset(
-                          "images/Group 38378.png",
-                          width: 20.w,
-                          height: 16.h,
-                        ),
-                        backgroundColor: Color(0xffF7F7F7),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 24.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        facebookAppOpen();
-                      },
-                      child: CircleAvatar(
-                        radius: 25.r,
-                        child: Image.asset(
-                          "images/Path 66795.png",
-                          width: 20.w,
-                          height: 16.h,
-                        ),
-                        backgroundColor: Color(0xffF7F7F7),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 24.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        telagramAppOpen();
-                      },
-                      child: CircleAvatar(
-                        radius: 25.r,
-                        child: Image.asset(
-                          "images/svgexport-17 (83).png",
-                          width: 20.w,
-                          height: 16.h,
-                        ),
-                        backgroundColor: Color(0xffF7F7F7),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 14.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        snapshatAppOpen();
-                      },
-                      child: CircleAvatar(
-                        radius: 25.r,
-                        child: Image.asset(
-                          "images/svgexport-17 (80).png",
-                          width: 20.w,
-                          height: 16.h,
-                        ),
-                        backgroundColor: Color(0xffF7F7F7),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 24.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        youtubeAppOpen();
-                      },
-                      child: CircleAvatar(
-                        radius: 25.r,
-                        child: Image.asset(
-                          "images/svgexport-17 (79).png",
-                          width: 20.w,
-                          height: 16.h,
-                        ),
-                        backgroundColor: Color(0xffF7F7F7),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 24.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        twitterAppOpen();
-                      },
-                      child: CircleAvatar(
-                        radius: 25.r,
-                        child: Image.asset(
-                          "images/svgexport-17 (82).png",
-                          width: 20.w,
-                          height: 16.h,
-                        ),
-                        backgroundColor: Color(0xffF7F7F7),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),
